@@ -1,0 +1,85 @@
+.Login{
+    .cards{
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        // background-image: url('bg.jpg');
+        background-color: #b31049;
+
+        background-position: center;
+        object-fit: cover;
+        background-size: cover;
+        .card{
+            width: 400px;
+            height: 350px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+            backdrop-filter: blur(15px);
+            border-radius: 10px;
+            color: white;
+            .content {
+                background-color: #f0060600;
+                border-radius: 10px;
+                display: block;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                    input[type="email"]{
+                        padding: 12px;
+                        border-radius: 8px;
+                        border: none;
+                        width: 90%;
+                        margin-top: 8%;
+                        border: 1px solid black;
+                    }
+                    input[type="password"]{
+                        padding: 12px;
+                        border-radius: 8px;
+                        border: none;
+                        width: 90%;
+                        margin-top: 4%;
+                        border: 1px solid black;
+                    }
+                    .button-24 {
+                    width: 90%;
+                     margin-top: 10%;
+                     border: 1px solid #116745 ;
+                     color: #116745;
+                    border-radius: 6px;
+                    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    display: inline-block;
+                    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+                    font-size: 16px;
+                    font-weight: 800;
+                    line-height: 16px;
+                    min-height: 40px;
+                    outline: 0;
+                    padding: 12px 14px;
+                    text-align: center;
+                    text-rendering: geometricprecision;
+                    text-transform: none;
+                    user-select: none;
+                    -webkit-user-select: none;
+                    touch-action: manipulation;
+                    vertical-align: middle;
+                    }
+    
+                    .button-24:hover,
+                    .button-24:active {
+                    background-color: initial;
+                    background-position: 0 0;
+                    background-color: #116745;
+                    border: solid 1px #0a855a;    
+                color: white;                }
+                    .button-24:active {
+                    opacity: .5;
+                    }
+            }
+    
+        }
+    }
+}

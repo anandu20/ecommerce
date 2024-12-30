@@ -1,0 +1,112 @@
+body{
+  overflow-y: hidden;
+}.userd {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .left {
+    width: 30%;  // Smaller size for the left div
+    padding: 20px;
+    height: 80vh;
+   
+  }
+  .card{
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    padding: 20px;
+
+  }
+  
+  .right {
+    width: 80%;  // Larger size for the right div
+    padding: 20px;
+    height: 80vh;
+
+  }
+  .cards{
+    background-color:white;
+    height: 100%;
+    
+  }
+
+  .card {
+    margin-bottom: 20px;
+    background-color: white;
+
+  }
+  
+  .cardx {
+    margin-bottom: 20px;
+    background-color: white;
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    padding: 30px;
+
+  }
+  
+  input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #3a3232;
+    border-radius: 5px;
+  }
+  
+  button.button-24 {
+    padding: 10px 20px;
+    border: none;
+    background-color: #d81d5f;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  button.button-24:hover {
+    background-color: #b50844;
+  }
+  
+  .buttons {
+    margin-top: 10px;
+  }
+  
+  .address-card {
+    margin-bottom: 20px;
+  }
+  
+  .images img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  label {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  
+  .radio-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: px;
+  }
+  
+  input[type="radio"] {
+    margin-right: 5px;
+    
+  }
+  .gend{
+    display: flex;
+    width: 50px;
+    align-items: center;
+  }
