@@ -170,7 +170,7 @@ const AddProduct = ({ setUser, setLogin }) => {
           )}
 
           {/* Size Select Box */}
-          <select name="size" id="size" onChange={handleChange} value={product.size}>
+          <select className="size" id="size" onChange={handleChange} value={product.size}>
             <option value="">Select Size</option>
             <option value="XS">XS</option>
             <option value="S">S</option>

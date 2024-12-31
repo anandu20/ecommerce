@@ -7,14 +7,14 @@
         justify-content: center;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         // background-image: url('bg.jpg');
-        background-color: #b31049;
-
+        background-color: #ffffff;
         background-position: center;
         object-fit: cover;
         background-size: cover;
         .card{
             width: 400px;
-            height: 350px;
+            height: auto;
+            padding-bottom: 60px;
             box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
             backdrop-filter: blur(15px);
             border-radius: 10px;
@@ -45,8 +45,9 @@
                     .button-24 {
                     width: 90%;
                      margin-top: 10%;
-                     border: 1px solid #116745 ;
-                     color: #116745;
+                     background-color: #b31049;
+                     border: 1px solid #b31049 ;
+                     color: #ffffff;
                     border-radius: 6px;
                     box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
                     box-sizing: border-box;
@@ -67,13 +68,16 @@
                     touch-action: manipulation;
                     vertical-align: middle;
                     }
+                    h1{
+                        color: black;
+                    }
     
                     .button-24:hover,
                     .button-24:active {
                     background-color: initial;
                     background-position: 0 0;
-                    background-color: #116745;
-                    border: solid 1px #0a855a;    
+                    background-color: #960a3b;
+                    border: 1px solid #b31049 ;  
                 color: white;                }
                     .button-24:active {
                     opacity: .5;

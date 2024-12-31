@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as p from './requestHandler.js'
-import Auth from "./middleware/auth.js";
+import Auth from "./middleware/Auth.js";
 const router=Router();
 router.route("/signin").post(p.signIn);
 router.route("/signup").post(p.signUp);

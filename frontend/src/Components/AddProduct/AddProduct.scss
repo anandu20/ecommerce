@@ -16,22 +16,25 @@
             background-color: white;
             input[type="text"]{
                 padding: 10px;
+                margin-bottom: 5%;
                 border-radius: 8px;
                 border: none;
                 width: 90%;
-                margin-top: 3%;
+                margin-top: 4%;
                 border: 1px solid black;
             }
             select{
+                margin-bottom: 4%;
                 padding: 10px;
                 border-radius: 8px;
                 border: none;
                 width: 96%;
-                margin-top: 3%;
                 border: 1px solid black;
+                margin-top: 3%;
             }
             .button-24 {
                 width: 90%;
+                margin-top: 2%;
                 background-color: #cc1f5b;
                 border: 1px solid #cc1f5b;;
                 border-radius: 6px;
@@ -47,7 +50,7 @@
                 line-height: 16px;
                 min-height: 40px;
                 outline: 0;
-                padding: 12px 14px;
+                padding: 10px 15px;
                 text-align: center;
                 text-rendering: geometricprecision;
                 text-transform: none;

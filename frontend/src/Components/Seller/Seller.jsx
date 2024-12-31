@@ -23,6 +23,9 @@ const Seller = ({setUser,setLogin}) => {
     }
 const getSellerD = async()=>{
     const res = await axios.get("http://localhost:3000/api/getseller",{ headers: { "Authorization": `Bearer ${value}` } })
+    const res1 = await axios.get("http://localhost:3000/api/getcat", { headers: { "Authorization": `Bearer ${value}` } });
+    console.log(res1.data);
+    
     console.log(res);
     if(res.status==201){
         getSeller(res.data)
