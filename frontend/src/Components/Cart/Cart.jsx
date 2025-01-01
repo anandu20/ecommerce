@@ -7,6 +7,7 @@ const Cart = ({ setUser, setLogin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const value = localStorage.getItem('Auth');
+  
   const [cartItems, setCartItems] = useState([]);
   const [message, setMessage] = useState(''); // To show success or error messages
 
@@ -124,7 +125,9 @@ const Cart = ({ setUser, setLogin }) => {
 
         <div className="cart-items">
           {cartItems.length === 0 ? (
-            <p>Your cart is empty.</p> // Show empty cart message if no items
+      
+            <p>  Cart is empty.</p>
+             // Show empty cart message if no items
           ) : (
             cartItems.map((item) => (
               <div className="cart-item" key={item._id}>
@@ -134,8 +137,10 @@ const Cart = ({ setUser, setLogin }) => {
                   className="cart-item-image"
                 />
                 <div className="cart-item-info">
-                  <h2 className="cart-item-name">{item.pname}</h2>
+                  <h2 className="cart-item-name">Name: {item.pname}</h2>
                   <p className="cart-item-price">₹{item.price}</p>
+                
+
 
                   {/* Quantity Controls */}
                   <div className="quantity-controls">

@@ -25,13 +25,15 @@
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
     .main-image {
-      max-width: 500px;
-      max-height: 500px;
+      width: 400px;
+      height: 400px;
       margin-bottom: 20px;
-
+      object-fit: cover;
+      justify-content: center;
+      
       img {
         width: 100%;
-        height: auto;
+        height: 100%;
         border-radius: 10px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       }
@@ -77,10 +79,10 @@
     }
 
     .price {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       font-weight: 700;
       color: #148445;
-      margin: 10px 0;
+      margin: 8px 0;
     }
 
     .description {

@@ -15,6 +15,7 @@ import UserDetails from './Components/AddUser/UserDetails';
 import CatProd from './Components/CatProd/CatProd';
 import Product from './Components/Product/Product';
 import Cart from './Components/Cart/Cart'
+import EditProduct from './Components/EditProduct/EditProduct'
 
 function App() {
   const [user,setUser]=useState(" ")
@@ -36,6 +37,8 @@ function App() {
         <Route path="/catprod/:category" element={<CatProd setUser={setUser} setLogin={setLogin}/> }></Route>
         <Route path="/product/:id" element={<Product setUser={setUser} setLogin={setLogin}/> }></Route>
         <Route path="/cart" element={<Cart setUser={setUser} setLogin={setLogin}/> }></Route>
+        <Route path="/editproduct/:id" element={<EditProduct setUser={setUser} setLogin={setLogin}/> }></Route>
+
 
 
 

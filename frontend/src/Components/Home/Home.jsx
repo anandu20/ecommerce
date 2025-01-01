@@ -58,7 +58,7 @@ return (
       {products.map((product, index) => (
         <Link key={index} to={`/product/${product._id}`} className="product-card">
           <div className="product-image">
-            {/* <img src={product.pimages[0]} alt={product.pname} /> */}
+            <img src={product.pimages[0]} alt={product.pname} />
           </div>
           <div className="product-details">
             <h2 className="product-name">{product.pname}</h2>

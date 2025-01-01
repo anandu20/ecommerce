@@ -4,6 +4,7 @@ import productSchema from './models/product.model.js'
 import userdetailsSchema from "./models/userdetails.model.js";
 import categorySchema from "./models/category.model.js";
 import addressSchema from "./models/address.model.js";
+import cartSchema from "./models/cart.model.js";
 import bcrypt from "bcrypt";
 import pkg from "jsonwebtoken";
 import nodemailer from "nodemailer";
@@ -359,33 +360,33 @@ export async function getProductE(req,res) {
 
 
 
-// export async function editProduct(req,res) {
-//   try {
-//         const {id} =req.params;
-//         const {...product} = req.body;
-//         console.log(req.body);
-//         const data = await productSchema.updateOne({_id:id},{$set:{...product}})
-//         return res.status(201).send({msg:"Success"})
+export async function editProduct(req,res) {
+  try {
+        const {id} =req.params;
+        const {...product} = req.body;
+        console.log(req.body);
+        const data = await productSchema.updateOne({_id:id},{$set:{...product}})
+        return res.status(201).send({msg:"Success"})
 
-//   } catch (error) {
-//     res.status(404).send({msg:error})
+  } catch (error) {
+    res.status(404).send({msg:error})
 
 
-//   }
+  }
   
-// }
+}
 
-// export async function deleteProduct(req,res) {
-//   try {
-//     const {id} = req.params;
-//     const data = await productSchema.deleteOne({_id:id})
-//     console.log("deleted");
-//     return res.status(201).send({msg:"Sucess"})
-//   } catch (error) {
-//     res.status(404).send({msg:error})
-//   }
+export async function deleteProduct(req,res) {
+  try {
+    const {id} = req.params;
+    const data = await productSchema.deleteOne({_id:id})
+    console.log("deleted");
+    return res.status(201).send({msg:"Sucess"})
+  } catch (error) {
+    res.status(404).send({msg:error})
+  }
   
-// }
+}
 export async function addToCart(req,res) {
   try {
     const _id = req.user.userId;

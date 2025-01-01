@@ -103,25 +103,24 @@ const AddProduct = ({ setUser, setLogin }) => {
       alert("Failed to add product");
     }
   };
+ // Handle file input for product images
+ const handleFile = async (e) => {
+  const arr = Object.values(e.target.files);
+  arr.map(async (file) => {
+    const pimages = await convertToBase64(file);
+    setPhotos((prev) => [...(Array.isArray(prev) ? prev : []), pimages]); 
+  });
+};
 
-  // Handle file input for product images
-  const handleFile = async (e) => {
-    const arr = Object.values(e.target.files);
-    arr.map(async (file) => {
-      const pimage = await convertToBase64(file);
-      setPhotos((prev) => [...(Array.isArray(prev) ? prev : []), pimage]); 
-    });
-  };
-
-  // Convert image file to base64 format
-  function convertToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => resolve(fileReader.result);
-      fileReader.onerror = (error) => reject(error);
-    });
-  }
+// Convert image file to base64 format
+function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => resolve(fileReader.result);
+    fileReader.onerror = (error) => reject(error);
+  });
+}
 
   // Handle input changes for product fields
   const handleChange = (e) => {

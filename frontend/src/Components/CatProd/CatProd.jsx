@@ -49,7 +49,7 @@ const CatProd = ({ setUser, setLogin }) => {
                     {/* <h1>Products</h1> */}
                     <h1></h1>
                     <div className="imagesd">
-                        {/* <img src={product.pimages[0]} alt="" /> */}
+                        <img src={product.pimages[0]} alt="" />
                     </div>
                     <br />
                     <h2>{product.pname}</h2>
