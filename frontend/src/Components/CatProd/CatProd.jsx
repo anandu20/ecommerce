@@ -2,20 +2,22 @@ import React, { useEffect, useState } from 'react'
 import '../CatProd/CatProd.scss'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 const CatProd = ({ setUser, setLogin }) => {
     const {category} =useParams();
-    console.log(category);
     const value = localStorage.getItem('Auth');
-    const [products,getProducts] = useState([])
+    const [products,setProducts] = useState([])
     useEffect(()=>{
         getProduct();
         getDetails();
     },[category])
 
     const getProduct = async()=>{
-        const res = await axios.get(`http://localhost:3000/api/getcat/${category}`)
+      
+        const res = await axios.get(`http://localhost:3000/api/getpcat/${category}`)
         if(res.status==201){
-            getProducts(res.data)
+            setProducts([...res.data])
         }
         else{
             alert("error")
@@ -43,14 +45,21 @@ const CatProd = ({ setUser, setLogin }) => {
             
             <div className="cardz">
                 {products.map((product,index)=>(
-                <div className="cardy">
-                    <h1>Products</h1>
+                <div className="cardy" key={index}>
+                    {/* <h1>Products</h1> */}
+                    <h1></h1>
                     <div className="imagesd">
-                        <img src={product.pimages[0]} alt="" />
+                        {/* <img src={product.pimages[0]} alt="" /> */}
                     </div>
-                    <h2>{product.pname}</h2><hr />
-                    <h2>{product.price} </h2><hr />
-                    <h2>{product.brand}</h2><hr />
+                    <br />
+                    <h2>{product.pname}</h2>
+                    <h3 className='cash'>${product.price} </h3>
+                    <h3>{product.brand}</h3>
+                    <div className="buttons">
+                      <Link to={`/editproduct/${product._id}`}><button className='button-3'>Edit</button></Link>
+                      <button className='button-4' onClick={()=>deleteProduct(product._id)}>Delete</button>
+                      <h1></h1>
+                    </div>
                 </div>
                 ))}
             </div>

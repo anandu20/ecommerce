@@ -157,11 +157,8 @@ export async function Seller(req,res) {
   try{
     const _id=req.user.userId;
     const seller = await companySchema.findOne({sellerId:_id});
-    console.log(seller);
     const user =await userSchema.findOne({_id});
     const address=await addressSchema.findOne({userId:_id})
-    console.log(address);
-    
     return res.status(201).send({seller,username:user.username,accounttype:user.accounttype,address})
   }
   catch{
@@ -206,9 +203,10 @@ export async function getSeller(req,res) {
 export async function addProduct(req,res) {
   try {
     const {...product} = req.body;
+    console.log(req.body);
+    
     const category=product.category;
-    const id=product.sellerId
-    console.log(id);
+    const id=product.sellerId;
     const data = await productSchema.create({...product})
     const datas =await categorySchema.create({sellerId:id,category})
     res.status(201).send({msg:"Sucess"})
@@ -222,7 +220,6 @@ export async function getProduct(req,res) {
   try {
         const _id = req.user.userId;
         const data = await productSchema.find({sellerId:_id})
-        console.log(data);
         return res.status(201).send(data)
   } catch (error) {
     res.status(404).send({msg:error})
@@ -235,7 +232,6 @@ export async function addUser(req,res){
   try {
     
     const {...user}=req.body;
-    console.log(user);
     const _id= req.user.userId;
     const data =await userdetailsSchema.create({userId:_id,...user})
     console.log("asfsf");
@@ -325,10 +321,12 @@ export async function getCategory(req,res) {
 }
 export async function getCatProduct(req,res) {
   try {
-      const category=req.params;
+    console.log("req.params");
+      const {category}=req.params;
+      console.log(category);
       const products=await productSchema.find({category})
       console.log(products);
-      return res.status(201).send(products)
+      return res.status(201).send(products)  
       
   } catch (error) {
     res.status(404).send({msg:error})
@@ -348,3 +346,96 @@ export async function getAllProducts(req,res) {
   }
   
 }
+export async function getProductE(req,res) {
+  try{
+    const {id} = req.params;
+    const product = await productSchema.findOne({_id:id});
+    return res.status(201).send(product)
+  }
+  catch(error){
+    res.status(404).send({msg:error})
+  }
+}
+
+
+
+// export async function editProduct(req,res) {
+//   try {
+//         const {id} =req.params;
+//         const {...product} = req.body;
+//         console.log(req.body);
+//         const data = await productSchema.updateOne({_id:id},{$set:{...product}})
+//         return res.status(201).send({msg:"Success"})
+
+//   } catch (error) {
+//     res.status(404).send({msg:error})
+
+
+//   }
+  
+// }
+
+// export async function deleteProduct(req,res) {
+//   try {
+//     const {id} = req.params;
+//     const data = await productSchema.deleteOne({_id:id})
+//     console.log("deleted");
+//     return res.status(201).send({msg:"Sucess"})
+//   } catch (error) {
+//     res.status(404).send({msg:error})
+//   }
+  
+// }
+export async function addToCart(req,res) {
+  try {
+    const _id = req.user.userId;
+    const {pname,price,pimages,quantity,productId} = req.body;
+    console.log(req.body);
+    console.log(pname,price,pimages,quantity,productId);
+    const data = await cartSchema.create({pname,price,pimages,userId:_id,quantity,productId})
+    console.log(data);
+    return res.status(201).send({msg:"Success"})
+  } catch (error) {
+    res.status(404).send({msg:error})
+
+  }
+  
+}
+
+export async function getCart(req,res) {
+    try {
+          const _id = req.user.userId;
+          const data = await cartSchema.find({userId:_id})
+          return res.status(201).send(data);
+
+    } catch (error) {
+      res.status(404).send({msg:error})
+
+    }
+  
+}
+
+export async function deleteCart(req,res) {
+  try {
+        const {id} =req.params;
+        const data = await cartSchema.deleteOne({_id:id})
+        return res.status(201).send({msg:"Success"})
+  } catch (error) {
+    res.status(404).send({msg:error})
+
+  }
+  
+}
+
+export async function updateCart(req,res) {
+  try {
+    const {quantity} = req.body;
+    const {id} =req.params;
+    const res = await cartSchema.updateOne({_id:id},{$set:{quantity}})
+    console.log(res);
+    return res.status(201).send({msg:"Success",res})
+  } catch (error) {
+    res.status(404).send({msg:error})
+  }
+}
+

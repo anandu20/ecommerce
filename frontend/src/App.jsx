@@ -11,8 +11,11 @@ import Nav from './Components/Nav/Nav';
 import Seller from './Components/Seller/Seller';
 import EditSeller from './Components/EditSeller/EditSeller';
 import AddProduct from './Components/AddProduct/AddProduct';
-import UserDetails from './Components/AddUser/UserDetails'
-import CatProd from './Components/CatProd/CatProd'
+import UserDetails from './Components/AddUser/UserDetails';
+import CatProd from './Components/CatProd/CatProd';
+import Product from './Components/Product/Product';
+import Cart from './Components/Cart/Cart'
+
 function App() {
   const [user,setUser]=useState(" ")
   const [login,setLogin]=useState(" ")
@@ -31,6 +34,8 @@ function App() {
         <Route path='/addproduct' element={<AddProduct setUser={setUser} setLogin={setLogin}/> }></Route>
         <Route path='/userdetails' element={<UserDetails setUser={setUser} setLogin={setLogin}/> }></Route>
         <Route path="/catprod/:category" element={<CatProd setUser={setUser} setLogin={setLogin}/> }></Route>
+        <Route path="/product/:id" element={<Product setUser={setUser} setLogin={setLogin}/> }></Route>
+        <Route path="/cart" element={<Cart setUser={setUser} setLogin={setLogin}/> }></Route>
 
 
 

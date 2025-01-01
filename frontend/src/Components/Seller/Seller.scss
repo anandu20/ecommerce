@@ -26,6 +26,7 @@
             .content{
                 text-align: center;
                 margin-top: 15px;
+                
             }
             .button-3 {
             margin: 5%;  
@@ -151,6 +152,32 @@
  
         
         }
+        .catm{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            .cat{
+              margin: 2%;
+              width: 150px;
+              height: 50px;
+              line-height: 50px;
+              text-align: center;
+              background-color: #b0164c;
+              color: white;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              border-radius: 8px;
+              h1{
+                color: white;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+              }
+              a{
+                text-decoration: none;
+                color: white;
+              }
+            }
+          }
+    
      
 
     

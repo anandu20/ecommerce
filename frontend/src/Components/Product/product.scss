@@ -1,0 +1,132 @@
+.product {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f7f7f7;
+
+  .product-container {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+    
+  }
+  
+
+  .left {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+    .main-image {
+      max-width: 500px;
+      max-height: 500px;
+      margin-bottom: 20px;
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .thumbnail-images {
+      display: flex;
+      gap: 10px;
+
+      .thumbnail {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .right {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 10px;
+    }
+
+    .brand {
+      font-size: 1.5rem;
+      color: #565959;
+      margin-bottom: 5px;
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #148445;
+      margin: 10px 0;
+    }
+
+    .description {
+      font-size: 1.4rem;
+      color: #555;
+      margin-bottom: 15px;
+
+      p {
+        margin: 5px 0;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 40%;
+
+      .add-to-cart, .go-to-cart, .buy-now-btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #f0c14b;
+        }
+
+        &.add-to-cart {
+          background-color: #e7ba4b;
+        }
+
+        &.go-to-cart {
+          background-color: #007185;
+          color: #fff;
+        }
+
+        &.buy-now-btn {
+          background-color: #ff9900;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

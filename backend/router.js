@@ -16,5 +16,12 @@ router.route("/updateuser").put(Auth,p.updateUser);
 router.route("/addaddress").post(Auth,p.addAddress);
 router.route("/addcat").post(p.addCategory);
 router.route("/getcat").get(Auth,p.getCategory);
+router.route("/getpcat/:category").get(p.getCatProduct)
 router.route("/getallproducts").get(Auth,p.getAllProducts);
+router.route("/getproducte/:id").get(p.getProductE);
+router.route("/addtocart").post(Auth,p.addToCart);
+router.route("/getcart").get(Auth,p.getCart);
+
+
+
 export default router;
