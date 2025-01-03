@@ -16,7 +16,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 20px;
-      justify-items: center;
+      justify-items: left;
     }
   
     .product-card {
@@ -72,7 +72,12 @@
   
         .product-category {
           font-size: 1rem;
-          color: #888;
+          color: #5a5757;
+        }
+        .product-Brand {
+          font-size: 15 px;
+          color: #5a5757;
+          margin-top: 6px;
         }
       }
     }

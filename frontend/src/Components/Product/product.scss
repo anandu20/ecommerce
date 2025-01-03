@@ -1,16 +1,20 @@
+
 .product {
   display: flex;
   justify-content: center;
   padding: 20px;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
+  
 
   .product-container {
     display: flex;
-    max-width: 1200px;
+    max-width: 1000px;
     width: 100%;
-    background-color: #fff;
+    height: 500px;
+    background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    
   
     
   }
@@ -18,15 +22,16 @@
 
   .left {
     flex: 1;
-    padding: 20px;
+    padding: 10px;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
     .main-image {
-      width: 400px;
-      height: 400px;
+      width: 305px;
+      height: 350px;
       margin-bottom: 20px;
       object-fit: cover;
       justify-content: center;
@@ -60,75 +65,82 @@
 
   .right {
     flex: 1;
-    padding: 20px;
+    padding: 20px;height: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    background-color: #E4E4E1;
+    background-image: radial-gradient(at top center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.03) 100%), linear-gradient(to top, rgba(255,255,255,0.1) 0%, rgba(213, 219, 223, 0.6) 100%);
+    background-blend-mode: normal, multiply;.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: left;
+  border-radius: 8px;
+}
 
-    .title {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #111;
-      margin-bottom: 10px;
+.brand, .price {
+  font-size: 16px;
+  color: #555;
+  margin-top: 1rem;
+}
+
+.price .pri {
+  font-weight: bold;
+  font-size: 25px;
+  color: #298858;
+}
+
+.description {
+  margin-top: .8rem;
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: .8rem;
+
+}
+.siz{
+  margin-top: 1rem;
+  font-size: 16px;
+
+}
+
+   
+.buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+
+  .add-to-cart, .go-to-cart, .buy-now-btn {
+    background: linear-gradient(135deg, #008CBA, #005f73);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, #005f73, #008CBA);
+      transform: scale(1.05);  /* Subtle scaling on hover */
     }
 
-    .brand {
-      font-size: 1.5rem;
-      color: #565959;
-      margin-bottom: 5px;
+    &:active {
+      transform: scale(0.98);  /* Button shrinks slightly when clicked or touched */
     }
+  }
 
-    .price {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #148445;
-      margin: 8px 0;
-    }
+  .go-to-cart {
+    background: #28a745;
+  }
 
-    .description {
-      font-size: 1.4rem;
-      color: #555;
-      margin-bottom: 15px;
+  .buy-now-btn {
+    background: linear-gradient(135deg, #005f73, #008CBA);
 
-      p {
-        margin: 5px 0;
-      }
-    }
+  }
+}
 
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 40%;
-
-      .add-to-cart, .go-to-cart, .buy-now-btn {
-        width: 100%;
-        padding: 15px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-
-        &:hover {
-          background-color: #f0c14b;
-        }
-
-        &.add-to-cart {
-          background-color: #e7ba4b;
-        }
-
-        &.go-to-cart {
-          background-color: #007185;
-          color: #fff;
-        }
-
-        &.buy-now-btn {
-          background-color: #ff9900;
-          color: #fff;
-        }
-      }
-    }
   }
 }

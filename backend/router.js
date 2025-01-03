@@ -20,6 +20,7 @@ router.route("/getpcat/:category").get(p.getCatProduct)
 router.route("/getallproducts").get(Auth,p.getAllProducts);
 router.route("/getproducte/:id").get(p.getProductE);
 router.route("/editproduct/:id").put(p.editProduct);
+router.route("/deleteproduct/:id").delete(p.deleteProduct);
 router.route("/deletep/:id").delete(p.deleteProduct);
 router.route("/addtocart").post(Auth,p.addToCart);
 router.route("/getcart").get(Auth,p.getCart);

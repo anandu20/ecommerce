@@ -61,9 +61,11 @@ return (
             <img src={product.pimages[0]} alt={product.pname} />
           </div>
           <div className="product-details">
-            <h2 className="product-name">{product.pname}</h2>
-            <p className="product-price">₹{product.price}</p>
-            <p className="product-category">{product.category}</p>
+            <h2 className="product-name">Name: {product.pname}</h2>
+            <p className="product-price">Price: ${product.price}</p>
+            <p className="product-category">Category: {product.category}</p>
+            <p className="product-Brand">Brand: {product.brand}</p>
+
           </div>
         </Link>
       ))}

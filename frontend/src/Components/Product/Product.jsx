@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../Product/Product.scss';
+import '../Product/product.scss'
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -133,10 +133,10 @@ const Product = ({ setUser, setLogin }) => {
         <div className="right">
           <h1 className="title">{products.pname}</h1>
           <div className="brand">Brand: <span>{products.brand}</span></div>
-          <div className="price">₹{products.price}</div>
+          <div className="price"><span className='pri'>Price:</span> ₹{products.price}</div>
           <div className="description">
-            <p>{products.category}</p>
-            <p>Size: {products.size}</p>
+            <p>Category:{products.category}</p>
+            <p className='siz'>Size: {products.size}</p>
           </div>
 
           {/* Button behavior changes depending on isInCart state */}
