@@ -12,8 +12,15 @@ const AddProduct = ({ setUser, setLogin }) => {
     pname: "",
     category: "",
     price: "",
-    size: "",
-    brand: "",
+    size: {
+      XS: 0,
+      S: 0,
+      M: 0,
+      L: 0,
+      XL: 0,
+      XXL: 0,
+    },   
+     brand: "",
     sellerId: ""
   });
   const [categories, setCategories] = useState([]); 
@@ -134,6 +141,17 @@ function convertToBase64(file) {
     setNewCategory(e.target.value);
   };
 
+  const handleSizeQuantityChange = (size, e) => {
+    const value = parseInt(e.target.value, 10) || 0; // Ensure default value of 0 if invalid input
+    setProduct({
+      ...product,
+      size: {
+        ...product.size,
+        [size]: value, // Correctly update the size quantity
+      },
+    });
+  };
+
   return (
     <div className='addp'>
       <div className="mains">
@@ -168,15 +186,20 @@ function convertToBase64(file) {
             </>
           )}
 
-          {/* Size Select Box */}
-          <select className="size" id="size" name="size" onChange={handleChange} value={product.size}>
-            <option value="">Select Size</option>
-            <option value="XS">XS</option>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-          </select>
+<div className="size">
+            <label>Sizes (Enter Quantity)</label>
+            <div className="size-quantity">
+              {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map((size) => (
+                <div key={size} className="size-input">
+                  <input
+                    type="number"
+                    onChange={(e) => handleSizeQuantityChange(size, e)}
+                    placeholder={size}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
 
           <input type="text" placeholder='Price' name='price' id='price' onChange={handleChange} />
           <input type="file" onChange={handleFile} name="pimages" id='pimages' multiple />

@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import '../Product/product.scss'
+import '../Product/Product.scss';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Product = ({ setUser, setLogin }) => {
   const { id } = useParams();
-  const navigate = useNavigate(); // To navigate programmatically
+  const navigate = useNavigate();
   const value = localStorage.getItem('Auth');
   const [products, getProducts] = useState({});
   const [mainImage, setMainImage] = useState('');
-  const [isInCart, setIsInCart] = useState(false); 
-  const [quantity, setQuantity] = useState(1); 
+  const [isInCart, setIsInCart] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [cart, setCart] = useState({
+    products: {},
+    size: "",
+    quantity: 0
+  });
 
   useEffect(() => {
     getDetails();
     getProduct();
   }, [id]);
 
-  // Fetch seller details
   const getDetails = async () => {
     try {
       const res = await axios.get('http://localhost:3000/api/seller', {
@@ -35,14 +41,14 @@ const Product = ({ setUser, setLogin }) => {
     }
   };
 
-  // Fetch product details
   const getProduct = async () => {
     try {
       const res = await axios.get(`http://localhost:3000/api/getproducte/${id}`);
       if (res.status === 201) {
         getProducts(res.data);
         setMainImage(res.data.pimages[0]);
-        checkIfProductInCart(res.data._id); // Check if the product is in the cart after fetching product details
+        checkIfProductInCart(res.data._id);
+        checkIfProductInWishlist(res.data._id);
       } else {
         alert('Error fetching product details');
       }
@@ -52,16 +58,14 @@ const Product = ({ setUser, setLogin }) => {
     }
   };
 
-  // Check if the product is already in the cart
   const checkIfProductInCart = async (productId) => {
     try {
       const res = await axios.get('http://localhost:3000/api/getcart', {
         headers: { 'Authorization': `Bearer ${value}` },
       });
       if (res.status === 201) {
-        // Check cart for the product based on productId
-        const productInCart = res.data.some(item => item.productId === productId); // Compare using productId
-        setIsInCart(productInCart); // Update isInCart based on product presence
+        const productInCart = res.data.some(item => item.productId === productId);
+        setIsInCart(productInCart);
       } else {
         alert('Error fetching cart details');
       }
@@ -71,27 +75,46 @@ const Product = ({ setUser, setLogin }) => {
     }
   };
 
-  // Handle image thumbnail click to set the main image
+  const checkIfProductInWishlist = async (productId) => {
+    try {
+      const res = await axios.get('http://localhost:3000/api/getwishlist', {
+        headers: { 'Authorization': `Bearer ${value}` },
+      });
+      if (res.status === 201) {
+        const productInWishlist = res.data.some(item => item.productId === productId);
+        setIsInWishlist(productInWishlist);
+      } else {
+        alert('Error fetching wishlist details');
+      }
+    } catch (error) {
+      console.error('Error checking wishlist for product', error);
+      alert('Failed to check wishlist for product');
+    }
+  };
+
   const handleThumbnailClick = (image) => {
     setMainImage(image);
   };
 
-  // Add the product to the cart
   const AddProduct = async () => {
+    if (!cart.size) {
+      alert('Please select a size');
+      return;
+    }
     try {
       const res = await axios.post(
         'http://localhost:3000/api/addtocart',
-        { 
-          pname: products.pname, 
-          price: products.price, 
-          pimages: products.pimages, 
-          quantity: quantity,
-          productId: products._id // Add productId to cart data
+        {
+          pname: products.pname,
+          price: products.price,
+          pimages: products.pimages,
+          quantity: cart.quantity,
+          productId: products._id,
+          size: cart.size
         },
         { headers: { 'Authorization': `Bearer ${value}` } }
       );
       if (res.status === 201) {
-        // Immediately update isInCart state after adding to cart
         setIsInCart(true);
         alert('Product added to cart');
       } else {
@@ -103,15 +126,58 @@ const Product = ({ setUser, setLogin }) => {
     }
   };
 
-  // Navigate to the cart page
+  const toggleWishlist = async () => {
+    try {
+      if (isInWishlist) {
+        const res = await axios.delete(
+          `http://localhost:3000/api/removefromwishlist/${products._id}`,
+          { headers: { 'Authorization': `Bearer ${value}` } }
+        );
+        if (res.status === 201) {
+          setIsInWishlist(false);
+          alert('Product removed from wishlist');
+        }
+      } else {
+        const res = await axios.post(
+          'http://localhost:3000/api/addtowishlist',
+          { productId: products._id, pname: products.pname, price: products.price, pimages: products.pimages, brand: products.brand },
+          { headers: { 'Authorization': `Bearer ${value}` } }
+        );
+        if (res.status === 201) {
+          setIsInWishlist(true);
+          alert('Product added to wishlist');
+        }
+      }
+    } catch (error) {
+      console.error('Error adding/removing product from wishlist', error);
+      alert('Error managing wishlist');
+    }
+  };
+
+  const handleSize = (size) => {
+    setCart(prevCart => ({
+      ...prevCart,
+      size: size,
+      products: products,
+      quantity: 1
+    }));
+  };
+
   const goToCart = () => {
-    navigate('/cart'); // Navigate to the cart page
+    navigate('/cart');
+  };
+
+  const Buy = () => {
+    if (!cart.size) {
+      alert('Please select a size');
+      return;
+    }
+    navigate(`/orders/${products._id}`);
   };
 
   return (
     <div className="product">
       <div className="product-container">
-        {/* Left side with images */}
         <div className="left">
           <div className="main-image">
             <img src={mainImage} alt="Main Product" />
@@ -128,18 +194,36 @@ const Product = ({ setUser, setLogin }) => {
             ))}
           </div>
         </div>
-
-        {/* Right side with product info */}
         <div className="right">
           <h1 className="title">{products.pname}</h1>
           <div className="brand">Brand: <span>{products.brand}</span></div>
-          <div className="price"><span className='pri'>Price:</span> ₹{products.price}</div>
+          <div className="price">₹{products.price}</div>
           <div className="description">
-            <p>Category:{products.category}</p>
-            <p className='siz'>Size: {products.size}</p>
+            <p>{products.category}</p>
           </div>
-
-          {/* Button behavior changes depending on isInCart state */}
+          <div className="size-options">
+            <strong>Select Size:</strong>
+            <div className="size-choices">
+              {products.size &&
+                Object.keys(products.size).map((size) => (
+                  <button
+                    key={size}
+                    className={`size-btn ${cart.size === size ? 'active' : ''}`}
+                    onClick={() => handleSize(size)}
+                    disabled={products.size[size] <= 0}
+                  >
+                    {size}
+                  </button>
+                ))}
+            </div>
+          </div>
+          <div className="wishlist" onClick={toggleWishlist}>
+            {isInWishlist ? (
+              <span className="heart-filled">❤️</span>
+            ) : (
+              <span className="heart-empty">🤍</span>
+            )}
+          </div>
           <div className="buttons">
             {isInCart ? (
               <button onClick={goToCart} className="go-to-cart">
@@ -150,7 +234,7 @@ const Product = ({ setUser, setLogin }) => {
                 Add to Cart
               </button>
             )}
-            <button className="buy-now-btn">Buy Now</button>
+            <button className="buy-now-btn" onClick={Buy}>Buy Now</button>
           </div>
         </div>
       </div>

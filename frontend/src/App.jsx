@@ -14,8 +14,9 @@ import AddProduct from './Components/AddProduct/AddProduct';
 import UserDetails from './Components/AddUser/UserDetails';
 import CatProd from './Components/CatProd/CatProd';
 import Product from './Components/Product/Product';
-import Cart from './Components/Cart/Cart'
-import EditProduct from './Components/EditProduct/EditProduct'
+import Cart from './Components/Cart/Cart';
+import EditProduct from './Components/EditProduct/EditProduct';
+import Wishlist from './Components/Wishlist/Wishlist';
 
 function App() {
   const [user,setUser]=useState(" ")
@@ -38,7 +39,7 @@ function App() {
         <Route path="/product/:id" element={<Product setUser={setUser} setLogin={setLogin}/> }></Route>
         <Route path="/cart" element={<Cart setUser={setUser} setLogin={setLogin}/> }></Route>
         <Route path="/editproduct/:id" element={<EditProduct setUser={setUser} setLogin={setLogin}/> }></Route>
-
+        <Route path='/wishlist' element={<Wishlist setUser={setUser} setLogin={setLogin}/> }></Route>
 
 
 

@@ -5,6 +5,7 @@ import userdetailsSchema from "./models/userdetails.model.js";
 import categorySchema from "./models/category.model.js";
 import addressSchema from "./models/address.model.js";
 import cartSchema from "./models/cart.model.js";
+import wishlistSchema from "./models/wishlist.model.js";
 import bcrypt from "bcrypt";
 import pkg from "jsonwebtoken";
 import nodemailer from "nodemailer";
@@ -440,3 +441,50 @@ export async function updateCart(req,res) {
   }
 }
 
+export async function addToWishlist(req,res) {
+  try {
+        const {productId,pname,price,pimages} = req.body;
+        const {id} = req.user.userId;
+        const product = await productSchema.findOne({_id:productId})
+        if(!product) return res.status(404).send({msg:"Error"})
+        const existingitem = await wishlistSchema.findOne({userId:id,productId,pname,price,pimages})
+      if(existingitem){
+        if(!product) return res.status(404).send({msg:"Error"})
+      }
+      const data = await wishlistSchema.create({userId:id,productId,pname,price,pimages});
+      return res.status(201).send({msg:"Success"})
+  } catch (error) {
+    res.status(404).send({msg:error})
+
+  }
+  
+}
+
+export async function  removeFromWishlist(req,res) {
+  try { 
+          const {id} =req.user.userId;
+          const {productId} = req.params;
+          console.log(productId);
+          
+          
+          const data = await wishlistSchema.deleteOne({userId:id,productId:productId})
+          return res.status(201).send({msg:"Success"})
+
+  } catch (error) {
+    res.status(404).send({msg:error})
+
+  }
+  
+}
+
+export async function getWishlist(req,res) {
+  try {
+    const {id} = req.user.userId;
+    const data = await wishlistSchema.find({userId:id})
+    return res.status(201).send(data)
+  } catch (error) {
+    res.status(404).send({msg:error})
+
+  }
+  
+}

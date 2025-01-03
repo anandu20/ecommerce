@@ -25,7 +25,9 @@ router.route("/deletep/:id").delete(p.deleteProduct);
 router.route("/addtocart").post(Auth,p.addToCart);
 router.route("/getcart").get(Auth,p.getCart);
 router.route("/deletecart/:id").delete(p.deleteCart);
-
+router.route("/addtowishlist").post(Auth,p.addToWishlist)
+router.route("/removefromwishlist/:productId").delete(Auth,p.removeFromWishlist)
+router.route("/getwishlist").get(Auth,p.getWishlist);
 
 
 export default router;

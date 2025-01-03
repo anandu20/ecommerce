@@ -147,7 +147,7 @@ console.log(data);
 
   return (
     <div className="userd">
-      <div className="left">
+      <div className="leftx">
         <div className="card">
           <h1>User Details</h1>
           <div className="images">

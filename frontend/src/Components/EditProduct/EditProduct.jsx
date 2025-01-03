@@ -136,7 +136,7 @@ const EditProduct = ({ setUser, setLogin }) => {
   };
 
   return (
-    <div className='addp'>
+    <div className='addpp'>
         <div className="mains">
             <div className="main">
                  <h2>Edit Product</h2>
