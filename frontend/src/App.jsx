@@ -17,6 +17,8 @@ import Product from './Components/Product/Product';
 import Cart from './Components/Cart/Cart';
 import EditProduct from './Components/EditProduct/EditProduct';
 import Wishlist from './Components/Wishlist/Wishlist';
+import Orders from './Components/Orders/Orders';
+import MyOrders from './Components/MyOders/MyOrders'
 
 function App() {
   const [user,setUser]=useState(" ")
@@ -40,6 +42,8 @@ function App() {
         <Route path="/cart" element={<Cart setUser={setUser} setLogin={setLogin}/> }></Route>
         <Route path="/editproduct/:id" element={<EditProduct setUser={setUser} setLogin={setLogin}/> }></Route>
         <Route path='/wishlist' element={<Wishlist setUser={setUser} setLogin={setLogin}/> }></Route>
+        <Route path="/orders/:id" element={<Orders setUser={setUser} setLogin={setLogin}/> }></Route>
+        <Route path="/myorders"  element={<MyOrders setUser={setUser} setLogin={setLogin}/> }></Route>
 
 
 

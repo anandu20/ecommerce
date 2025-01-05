@@ -8,7 +8,7 @@
   .product-container {
     display: flex;
     width: 1000px;
-    height: 60vh;
+    height: 70vh;
     border-radius:8px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
@@ -139,8 +139,10 @@ background: linear-gradient(to right, #f80759, #bc4e9c); /* W3C, IE 10+/ Edge, F
       /* Wishlist */
       .wishlist {
         font-size: 2rem;
-        margin: px 0;
+        margin-left: 1%;
+        padding-left: 0px;
         cursor: pointer;
+        
 
         .heart-filled {
           color: #ff0000;
@@ -155,7 +157,7 @@ background: linear-gradient(to right, #f80759, #bc4e9c); /* W3C, IE 10+/ Edge, F
       .buttons {
         display: flex;
         gap: 35px;
-        margin-top: 30px;
+        margin-top:0px;
 
         button {
           padding: 15px 30px;
@@ -164,7 +166,7 @@ background: linear-gradient(to right, #f80759, #bc4e9c); /* W3C, IE 10+/ Edge, F
           border-radius: 5px;
           border: none;
           transition: background-color 0.3s ease, transform 0.3s ease;
-          margin-top: 25px;
+          
 
           &.add-to-cart {
             background-color: #ff9900;

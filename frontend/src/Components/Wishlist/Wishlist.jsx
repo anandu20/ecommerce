@@ -30,13 +30,13 @@ const Wishlist = ({ setUser, setLogin }) => {
     fetchWishlist();
     getDetails();
   }, [value]); // Fetch wishlist whenever the component mounts or token changes
+
   const fetchWishlist = async () => {
     try {
       const res = await axios.get('http://localhost:3000/api/getwishlist', {
         headers: { 'Authorization': `Bearer ${value}` },
       });
       if (res.status === 201) {
-          console.log(res);
         setWishlist(res.data); // Set the fetched wishlist
       } else {
         alert('Error fetching wishlist');
@@ -58,11 +58,9 @@ const Wishlist = ({ setUser, setLogin }) => {
         headers: { 'Authorization': `Bearer ${value}` },
       });
       if (res.status === 201) {
-
         setWishlist(wishlist.filter(item => item.productId._id !== productId));
         alert('Product removed from wishlist');
         fetchWishlist();
-        
       } else {
         alert('Error removing product from wishlist');
       }
@@ -71,7 +69,8 @@ const Wishlist = ({ setUser, setLogin }) => {
       alert('Failed to remove product from wishlist');
     }
   };
-console.log(wishlist);
+
+  console.log(wishlist);
 
   // Navigate to product details page
   const goToProduct = (productId) => {
@@ -92,18 +91,22 @@ console.log(wishlist);
             wishlist.map(item => {
               console.log(item.productId.pimages); // Log the images to see what's being fetched
 
+              // Ensure there's at least one image in the pimages array before using it
+              const imageUrl = item.pimages && item.pimages.length > 0 
+                    ? item.pimages[0] // Use the first image in the array
+                    : 'path/to/default-image.jpg'; // Fallback image if no images available
+
               return (
-                
                 <div key={item.productId._id} className="wishlist-item">
                   <img
-                    src={"" || 'path/to/default-image.jpg'} // Fallback image
+                    src={imageUrl} // Set the correct image URL
                     alt={item.productId.pname}
                     onClick={() => goToProduct(item.productId._id)}
                     className="product-image"
                   />
                   <div className="product-info">
                     <h2>{item.pname}</h2>
-                    <p>Brand: {item.productId.brand}</p>
+                    <p>Brand: {item.brand}</p>
                     <p>Price: ₹{item.price}</p>
                   </div>
                   <button

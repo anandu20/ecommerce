@@ -86,7 +86,7 @@ console.log(seller);
   return (
     <div className='seller'>
       <div className="main">
-        <div className="left">
+        <div className="leftt">
             <div className="image">
                 <img src="pic.jpg" alt="" />
             </div>
