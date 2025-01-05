@@ -1,0 +1,121 @@
+.purchase-success {
+    padding: 30px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  
+    .success-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+  
+    .success-heading {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2ecc71;
+      margin-bottom: 20px;
+    }
+  
+    .success-message {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 30px;
+  
+      strong {
+        color: #333;
+      }
+    }
+  
+    .product-details {
+      margin-top: 30px;
+      text-align: left;
+  
+      h2 {
+        font-size: 1.6rem;
+        color: #333;
+        margin-bottom: 15px;
+      }
+  
+      .product-card {
+        display: flex;
+        border: 1px solid #eaeaea;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 0 auto;
+        width: 80%;
+        max-width: 1000px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  
+        .product-image {
+          width: 30%;
+          height: 200px;
+          overflow: hidden;
+          background-color: #eaeaea;
+  
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+  
+        .product-info {
+          padding: 20px;
+          width: 70%;
+          text-align: left;
+  
+          h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+          }
+  
+          .brand,
+          .price,
+          .quantity,
+          .total-price {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 8px;
+          }
+  
+          .price {
+            color: #e74c3c;
+            font-weight: 600;
+          }
+  
+          .quantity {
+            font-weight: 500;
+          }
+  
+          .total-price {
+            font-weight: 600;
+            color: #333;
+          }
+        }
+      }
+    }
+  
+    .continue-shopping {
+      margin-top: 40px;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #2980b9;
+      }
+    }
+  }
+  

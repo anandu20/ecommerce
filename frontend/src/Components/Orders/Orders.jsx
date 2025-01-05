@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import '../Orders/Orders.scss'; // Ensure to add appropriate styles in this file
 import { FiMinus, FiPlus } from 'react-icons/fi';
 
 const Orders = ({ setUser, setLogin }) => {
+  const navigate=useNavigate()
   const value = localStorage.getItem('Auth');
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(0);
   const [addresses, setAddresses] = useState([]); // State for addresses
   const [selectedAddress, setSelectedAddress] = useState(''); // State for selected address
-
-console.log(selectedAddress);
 
   useEffect(() => {
     getProductDetails();
@@ -23,7 +22,10 @@ console.log(selectedAddress);
   const getProductDetails = async () => {
     try {
       const res = await axios.get(`http://localhost:3000/api/getorder/${id}`);
+      
+      
       setProduct(res.data);
+      console.log(res.data);
       setQuantity(res.data.quantity); // Initial quantity of the product
     } catch (error) {
       console.error('Error fetching product details:', error);
@@ -53,11 +55,11 @@ console.log(selectedAddress);
       const res = await axios.get('http://localhost:3000/api/getaddress', {
         headers: { 'Authorization': `Bearer ${value}` },
       });
-      console.log('Fetched Addresses:', res.data); // Log the full response to check structure
+      // console.log('Fetched Addresses:', res.data); // Log the full response to check structure
       if (res.status === 201) { // Fixed status code to 200 for successful fetch
         // Assuming the structure is { address: [{_id, details}, ...] }
         setAddresses(res.data.address || []);
-        console.log(res.data.address); // Verify the addresses format
+        // console.log(res.data.address); // Verify the addresses format
       } else {
         alert('Error fetching addresses');
       }
@@ -121,7 +123,7 @@ console.log(selectedAddress);
   
       if (orderResponse.status === 201) {
         console.log('Product added to orders:', orderResponse.data);
-  
+        
         const removeCartResponse = await axios.delete(
           `http://localhost:3000/api/deletecart/${product._id}`, 
           { headers: { 'Authorization': `Bearer ${value}` } }
@@ -130,8 +132,10 @@ console.log(selectedAddress);
         if (removeCartResponse.status === 201) {
           console.log('Product removed from cart:', removeCartResponse.data);
   
+         
           // Optionally: Redirect the user to the orders page or show an order confirmation message
           alert('Order placed successfully! Product removed from cart.');
+          navigate('/success')
           // Optionally, you can redirect the user or update state here to reflect changes.
         } else {
           alert('Error removing product from cart.');
@@ -226,3 +230,15 @@ console.log(selectedAddress);
 };
 
 export default Orders;
+
+// const handleCart = async () => {
+//   const { status, data } = await axios.post(`${route()}buynow`, { id: pid }, { headers: { "Authorization": `Bearer ${value}` } });
+//   if (status === 201) {
+//       alert(data.msg);
+//       if(data.msg=="success")
+//           navigate('/purchasecompleted')
+//   }
+// };
+// <div className="payment-button">
+//                                 <button onClick={handleCart}>Place Order</button>
+//                             </div>

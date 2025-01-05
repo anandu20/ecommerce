@@ -20,7 +20,7 @@ const Home = ({setUser,setLogin}) => {
       const res = await axios.get("http://localhost:3000/api/home",{headers:{"Authorization":`Bearer ${value}`}})
     if(res.status==200){
       console.log(res);
-      alert("successs")
+      // alert("successs")
       setUser(res.data.username);
       setLogin(res.data.accounttype);
     }

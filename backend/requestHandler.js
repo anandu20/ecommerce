@@ -6,6 +6,7 @@ import categorySchema from "./models/category.model.js";
 import addressSchema from "./models/address.model.js";
 import cartSchema from "./models/cart.model.js";
 import wishlistSchema from "./models/wishlist.model.js";
+import orderSchema from "./models/order.model.js";
 import bcrypt from "bcrypt";
 import pkg from "jsonwebtoken";
 import nodemailer from "nodemailer";
@@ -262,6 +263,39 @@ export async function addAddress(req,res){
    res.status(404).send({send:error}) 
   }
 }
+export async function getAddress(req,res) {
+  try {
+    const _id=req.user.userId;
+    const address=await addressSchema.findOne({userId:_id})
+    
+    return res.status(201).send(address)
+
+  } catch (error) {
+    res.status(404).send({msg:error})
+
+  }
+}
+export async function deleteAddress(req, res) {
+  try {
+    const  housename = req.body; 
+    const  id = req.user.userId;  
+      console.log(req.body);
+      console.log(id);
+      
+      
+
+    const result = await addressSchema.updateOne(
+      { userId: id },
+      { $pull: { address: housename } } 
+    );
+ 
+    return res.status(201).send({ msg: 'Address deleted successfully', result });
+    
+  } catch (error) {
+    console.error('Error during address deletion:', error);
+    return res.status(404).send({ msg: 'Error deleting address', error: error.message });
+  }
+}
 
 export async function updateUser(req,res) {
   try {
@@ -278,11 +312,16 @@ export async function updateUser(req,res) {
 }
 
 
+
 export async function  getUser(req,res) {
   try {
         const _id = req.user.userId;
         const user = await userdetailsSchema.findOne({userId:_id});
-        return res.status(201).send({msg:"Success",user})
+        const count = await orderSchema.countDocuments({});
+        const count1 = await wishlistSchema.countDocuments({});
+        const count2 = await cartSchema.countDocuments({});
+        
+        return res.status(201).send({msg:"Success",user,count,count1,count2})
 
   } catch (error) {
     res.status(404).send({msg:error})
@@ -391,10 +430,10 @@ export async function deleteProduct(req,res) {
 export async function addToCart(req,res) {
   try {
     const _id = req.user.userId;
-    const {pname,price,pimages,quantity,productId} = req.body;
+    const {pname,price,pimages,quantity,productId,size,brand} = req.body;
     console.log(req.body);
-    console.log(pname,price,pimages,quantity,productId);
-    const data = await cartSchema.create({pname,price,pimages,userId:_id,quantity,productId})
+    console.log(pname,price,pimages,quantity,productId,brand);
+    const data = await cartSchema.create({pname,price,pimages,userId:_id,quantity,productId,size,brand  })
     console.log(data);
     return res.status(201).send({msg:"Success"})
   } catch (error) {
@@ -414,6 +453,20 @@ export async function getCart(req,res) {
       res.status(404).send({msg:error})
 
     }
+  
+}
+export async function getOrder(req,res) {
+  try {
+    const {id} = req.params;
+    const data = await cartSchema.findOne({productId:id})
+    console.log(data);
+        
+        return res.status(201).send(data);
+
+  } catch (error) {
+    res.status(404).send({msg:error})
+
+  }
   
 }
 
@@ -443,11 +496,11 @@ export async function updateCart(req,res) {
 
 export async function addToWishlist(req,res) {
   try {
-        const {productId,pname,price,pimages} = req.body;
+        const {productId,pname,price,pimages,brand} = req.body;
         const {id} = req.user.userId;
         const product = await productSchema.findOne({_id:productId})
         if(!product) return res.status(404).send({msg:"Error"})
-        const existingitem = await wishlistSchema.findOne({userId:id,productId,pname,price,pimages})
+        const existingitem = await wishlistSchema.findOne({userId:id,productId,pname,price,pimages,brand})
       if(existingitem){
         if(!product) return res.status(404).send({msg:"Error"})
       }
@@ -487,4 +540,117 @@ export async function getWishlist(req,res) {
 
   }
   
+}
+
+export async function editQuantity(req,res) {
+  try {
+      const {id,quantity,type}=req.body;
+      let newQuantity=0;
+      const bid=req.user.userId;
+     (type==='increase')? newQuantity=quantity+1: newQuantity=quantity-1;
+      const data=await cartSchema.updateOne({_id:id},{ $set: { quantity: newQuantity }} );
+      return res.status(201).send({msg:"Updated"});
+  } catch (error) {
+      return res.status(404).send({msg:"error"})
+  }
+}
+
+export async function addOrder(req,res) {
+  try {
+    console.log(req.body);
+    
+    const {productId,quantity,sizee,housename,totalPrice} = req.body
+    const id = req.user.userId;
+    const product =await productSchema.findOne({_id:productId})
+    console.log(product.size[sizee]);
+    const newQuantity=product.size[sizee]-quantity;
+    if(newQuantity<0)
+      return res.status(201).send({msg:"Error"})
+    await productSchema.updateOne({_id:productId},{$set:{[`size.${sizee}`]:newQuantity}})
+    const data = await orderSchema.create({userId:id,productId,quantity,housename,totalPrice});
+    return res.status(201).send({msg:"Success",data})
+    
+  } catch (error) {
+    return res.status(404).send({msg:"error"})
+
+  }
+}
+
+export async function getOrders(req,res) {
+  try {
+   
+        const uid = req.user.userId;
+        const count = await orderSchema.countDocuments({})
+        const order = await orderSchema.find({userId:uid});
+        console.log(order);
+        
+        
+        
+        const productData=order.map(async(p)=>{
+          
+          return await productSchema.findOne({_id:p.productId})
+        })
+        const products=await Promise.all(productData)
+        
+        return res.status(201).send({msg:"Success",products,order,count})
+
+        
+  } catch (error) {
+        return res.status(404).send({msg:"error"})
+
+  }
+  
+}
+export async function addAllOrders(req, res) {
+  try {
+    const userId = req.user.userId; 
+    const orderItems = req.body;
+    console.log(orderItems);
+    
+    const orderData = [];  
+    let totalOrderPrice = 0; 
+    
+    for (const item of orderItems) {
+      const { productId, quantity, sizee, housename, totalPrice } = item;
+      console.log(productId);
+      
+      const product = await productSchema.findOne({ _id: productId });
+      console.log(product);
+      
+      if (!product) {
+        return res.status(404).send({ msg: `Product with ID ${productId} not found` });
+      }
+
+      console.log(sizee);
+      const newQuantity = product.size[sizee] - quantity;
+      
+      if (newQuantity < 0) {
+        return res.status(400).send({ msg: `Not enough stock for size ${sizee} of ${product.pname}` });
+      }
+
+      await productSchema.updateOne(
+        { _id: productId },
+        { $set: { [`size.${sizee}`]: newQuantity } }
+      );
+
+      orderData.push({
+        userId,
+        product
+      });
+      console.log(orderData);
+      
+
+      totalOrderPrice += parseFloat(totalPrice);  
+    }
+
+    const orders = await orderSchema.insertMany(orderData);
+    const deleteCart=await cartSchema.deleteMany({userId})
+    console.log(deleteCart);
+    
+
+    return res.status(201).send({ msg: "Orders placed successfully!", orders, totalOrderPrice });
+  } catch (error) {
+    console.error("Error during order creation", error);
+    return res.status(404).send({ msg: "Error processing orders" });
+  }
 }

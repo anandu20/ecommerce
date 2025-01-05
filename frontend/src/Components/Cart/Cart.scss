@@ -68,8 +68,9 @@
               gap: 10px;
   
               .quantity-btn {
-                background-color: #f0f0f0;
-                border: 1px solid #ccc;
+                background-color: #0bae75;
+                border: 1px solid #0bae75;
+                color: white;
                 padding: 5px 10px;
                 border-radius: 5px;
                 cursor: pointer;
@@ -77,7 +78,7 @@
                 transition: background-color 0.3s;
   
                 &:hover {
-                  background-color: #e0e0e0;
+                  background-color: #09885e;
                 }
   
                 &:disabled {

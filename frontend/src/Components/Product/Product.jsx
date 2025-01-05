@@ -110,7 +110,8 @@ const Product = ({ setUser, setLogin }) => {
           pimages: products.pimages,
           quantity: cart.quantity,
           productId: products._id,
-          size: cart.size
+          size: cart.size,
+          brand:products.brand
         },
         { headers: { 'Authorization': `Bearer ${value}` } }
       );
@@ -227,11 +228,12 @@ const Product = ({ setUser, setLogin }) => {
           <div className="buttons">
             {isInCart ? (
               <button onClick={goToCart} className="go-to-cart">
-                Go to Cart
+               Go to Cart
+               
               </button>
             ) : (
               <button onClick={AddProduct} className="add-to-cart">
-                Add to Cart
+              Add to Cart 
               </button>
             )}
             <button className="buy-now-btn" onClick={Buy}>Buy Now</button>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const Cart = ({ setUser, setLogin }) => {
+
   const { id } = useParams();
   const navigate = useNavigate();
   const value = localStorage.getItem('Auth');
@@ -78,22 +79,31 @@ const Cart = ({ setUser, setLogin }) => {
     }
   };
 
-  // Handle Proceed to Checkout (Clear Cart)
   const handleProceedToCheckout = async () => {
     try {
-      const res = await axios.delete("http://localhost:3000/api/clearcart", {
-        headers: { "Authorization": `Bearer ${value}` },
+      const orderItems = cartItems.map(item => ({
+        productId:item.productId,     
+        quantity: item.quantity,  
+        sizee: item.size,         
+        housename: item.housename || "Default House", // House name, default to "Default House"
+        totalPrice: (item.quantity * item.price).toString(),  // Calculate total price for each item
+      }));
+
+      // Make the request to the backend to add all orders
+      const resAddToOrders = await axios.post("http://localhost:3000/api/addallorders", orderItems, {
+        headers: { "Authorization": `Bearer ${value}` }, // Pass authorization token
       });
 
-      if (res.status === 201) {
-        setMessage('Cart cleared successfully!');  // Show success message
-        setCartItems([]);  // Clear the cart on frontend
+      if (resAddToOrders.status === 201) {
+        alert("Success! Your order has been placed.");
+        setCartItems([]); 
+        navigate("/")
       } else {
-        alert('Error clearing cart');
+        alert('Error processing checkout');
       }
     } catch (error) {
-      console.error('Error clearing cart', error);
-      alert('Failed to clear cart');
+      console.error('Error during checkout', error);
+      alert('Failed to proceed with checkout');
     }
   };
 
@@ -102,6 +112,7 @@ const Cart = ({ setUser, setLogin }) => {
       const res = await axios.delete(`http://localhost:3000/api/deletecart/${id}`);
       if (res.status === 201) {
         alert("Product Purchased");
+
         getAllProducts();
       } else {
         alert("Error purchasing product");
@@ -144,8 +155,6 @@ const Cart = ({ setUser, setLogin }) => {
 
                   {/* Quantity Controls */}
                   <div className="quantity-controls">
-
-                    
                     <button
                       className="quantity-btn"
                       onClick={() => updateQuantity(item._id, item.quantity - 1)}
@@ -171,18 +180,19 @@ const Cart = ({ setUser, setLogin }) => {
           )}
         </div>
 
-        {/* Cart Footer with Total Price */}
-        <div className="cart-footer">
+         <div className="cart-footer">
           <div className="total-price">
-            <p>Total: ₹{calculateTotal()}</p>
-          </div>
+            <p>Total: ₹{calculateTotal()}</p> {/* Display calculated total */}
+        {/* <p>40% Discount Added</p>
+            <p>COUPONS FOR YOU APPLIED</p> */}
+          </div>            
 
-          {/* Proceed to Checkout Card Button
+          {/* Proceed to Checkout Card Button */}
           <div className="checkout-card">
             <button className="proceed-btn" onClick={handleProceedToCheckout}>
               Proceed to Checkout
             </button>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

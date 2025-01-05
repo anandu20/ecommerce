@@ -41,6 +41,10 @@ const Login = () => {
                         <input type="password" name="password" id='password' placeholder='Password' onChange={handleChange}/>
                         {/* <Link to="/email">Verify Mail</Link> */}
                         <button className='button-24'>Login In</button>
+                         <p className='hii'>
+                             Don't have an account? <a href="/email">Sign Up</a>
+                         </p>
+                    
                     </form>
                 </div>
             </div>

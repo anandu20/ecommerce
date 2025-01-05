@@ -1,25 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './UserDetails.scss';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 const UserDetails = ({ setUser, setLogin }) => {
   const value = localStorage.getItem('Auth');
   const [addressCards, setAddressCards] = useState([]);
   const [isDisabled, setIsDisabled] = useState(true);
-
+  const navigate = useNavigate();
   // State for user data
   const [data, setData] = useState({
-    userId: "",
     fname: "",
     lname: "",
     mobile: "",
     gender: "",
   });
 
+  const[count,setCount] =useState({
+    counts:0,
+    counts1:0,
+    counts2:0
+  })
+
+  console.log(count);
+
+
   // Fetch user details from API
   useEffect(() => {
     getDetails();
     getData();
+    getAddress();
   }, []);
 
   const getDetails = async () => {
@@ -45,23 +57,39 @@ const UserDetails = ({ setUser, setLogin }) => {
 
   const getData = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/getuser", {
-        headers: { "Authorization": `Bearer ${value}` }, // Corrected template literal
-      });
-      console.log("User data fetched:", res.data.user); // Debugging log
+      const res = await axios.get("http://localhost:3000/api/getuser", {headers: { "Authorization": `Bearer ${value}` },});
+      
+      
       setData({
-        userId: res.data.user.userId,
         gender: res.data.user.gender || "",
         fname: res.data.user.fname,
         lname: res.data.user.lname,
         mobile: res.data.user.mobile,
-        address: res.data.user.address || [], // Assuming the user data already has addresses
       });
+      setCount({
+        counts:res.data.count,
+        counts1:res.data.count1,
+        counts2:res.data.count2
+
+      })
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
-
+  console.log(count);
+  
+  const getAddress = async()=>{
+    const res = await axios.get("http://localhost:3000/api/getaddress", {headers: { "Authorization": `Bearer ${value}` },});
+    console.log(res);
+    
+    if(res.status==201){
+      setAddressCards(res.data.address)
+      
+    }
+    else{
+      alert("Failed")
+    }
+  }
   const handleChange = (e, index) => {
     const { name, value } = e.target;
     setAddressCards((prevCards) => {
@@ -77,22 +105,12 @@ const UserDetails = ({ setUser, setLogin }) => {
       gender: e.target.value,
     }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data); // Log the current data
+    const updatedData = {data};
 
     try {
-      let res;
-      if (data.userId) {
-        res = await axios.put("http://localhost:3000/api/updateuser", data, {
-          headers: { "Authorization": `Bearer ${value}` }, // Corrected template literal
-        });
-      } else {
-        res = await axios.post("http://localhost:3000/api/adduser", data, {
-          headers: { "Authorization": `Bearer ${value}` }, // Corrected template literal
-        });
-      }
+      const res = await axios.post("http://localhost:3000/api/updateuser", data, {headers: { "Authorization": `Bearer ${value}` },});
 
       if (res.status === 201) {
         alert("User saved successfully!");
@@ -103,7 +121,6 @@ const UserDetails = ({ setUser, setLogin }) => {
       console.error("Error during submission:", error);
     }
   };
-
   const toggleInput = () => {
     setIsDisabled(!isDisabled);
   };
@@ -144,6 +161,41 @@ console.log(data);
       alert("Error adding address");
     }
   };
+  const deleteAddress = async (fieldValue) => {
+    const addressToDelete = addressCards.find((address) => address.housename === fieldValue);
+  
+    if (!addressToDelete) {
+      alert("Address not found");
+      return;
+    }
+  
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/deleteaddress",
+        { housename: fieldValue },
+        {
+          headers: { Authorization: `Bearer ${value}` },
+        }
+      );
+  
+      if (res.status === 201) {
+        setAddressCards((prevCards) => prevCards.filter((address) => address.housename !== fieldValue));
+        alert("Address deleted successfully!");
+      } else {
+        alert("Failed to delete address: " + res.data.msg);
+      }
+    } catch (error) {
+      console.error("Error deleting address:", error);
+      alert("Error deleting address");
+    }
+  };
+  const logout = ()=>{
+    localStorage.removeItem('Auth')
+    alert("Logged Out")
+    navigate("/login")
+
+  }
+  
 
   return (
     <div className="userd">
@@ -215,6 +267,14 @@ console.log(data);
       </div>
 
       <div className="right">
+        <div className="btnss">
+          <button className='btn4'><Link to="/myorders"> My orders  ({count.counts})</Link></button>
+          <button className='btn4' ><Link to="/wishlist"> Wishlist ({count.counts1})</Link></button>
+          <button className='btn4' ><Link to='/cart'> Cart ({count.counts2})</Link></button>
+          <button className="logout" onClick={logout}>Logout</button>
+
+
+        </div>
         <div className="cards">
           <div className="cardx">
             <h1>Address Details</h1>
@@ -259,8 +319,8 @@ console.log(data);
                   <button className="button-24" onClick={toggleInputA}>
                     {isDisabled ? "Enable" : "Disable"}
                   </button>
-                  <button className="button-24">Delete</button>
-                </div>
+                  <button className="button-24" onClick={()=>deleteAddress(address.housename)}>Delete</button>               
+                   </div>
               </div>
             ))}
             <div className="buttons">

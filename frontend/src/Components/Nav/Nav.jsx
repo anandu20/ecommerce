@@ -8,23 +8,21 @@ const Nav = ({user,login}) => {
     <div className='navbar'>
       <nav>
         <div className="leftx">
-        <h1>DAZZLER.COM</h1>
+          <Link to={'/'}> <h1>DAZZLER.COM</h1>  </Link>
 
         </div>
         <div className="right">
             <div className="profile">
-            <Link to="/userdetails"><img src="pic.jpg" alt="" /></Link>
+            <Link to="/userdetails"><img src="/pic.jpg" alt="" /></Link>
             </div>
             <div className="name">
             <h2>{user}</h2>
             </div>
                
           <div className="names">
-          <Link to="/cart"><img src="" alt="cart" /></Link>
+          <Link to="/cart"><img src="/cart.png" alt="cart" /></Link>
           </div>
-          <div className="names2">
-          <Link to="/wishlist"><img src="" alt="wishlist" /></Link>
-          </div>
+        
             <div className="login">
             <Link to="/seller"><h2>{login}</h2></Link>
           </div>

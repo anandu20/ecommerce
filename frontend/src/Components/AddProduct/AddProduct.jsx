@@ -19,6 +19,7 @@ const AddProduct = ({ setUser, setLogin }) => {
       L: 0,
       XL: 0,
       XXL: 0,
+      XXXL:0,
     },   
      brand: "",
     sellerId: ""
@@ -36,7 +37,7 @@ const AddProduct = ({ setUser, setLogin }) => {
     try {
       const res = await axios.get("http://localhost:3000/api/seller", { headers: { "Authorization": `Bearer ${value}` } });
       if (res.status === 201) {  
-        setProduct({ sellerId: res.data.seller.sellerId, brand: res.data.seller.name });
+        setProduct((prev)=>({ ...prev,sellerId: res.data.seller.sellerId, brand: res.data.seller.name }));
         setUser(res.data.username);
         setLogin(res.data.accounttype);
       } else {
@@ -76,7 +77,6 @@ const AddProduct = ({ setUser, setLogin }) => {
       if (res.status === 201) { 
         alert("Category added successfully");
         setCategories((prev) => [...(Array.isArray(prev) ? prev : []), newCategory]); 
-        setProduct((prev) => ({ ...prev, category: newCategory })); 
         setNewCategory(""); 
       } else {
         alert(res.data.msg || "Failed to add category");
@@ -151,7 +151,8 @@ function convertToBase64(file) {
       },
     });
   };
-
+  console.log(product.size);
+  
   return (
     <div className='addp'>
       <div className="mains">
@@ -189,7 +190,7 @@ function convertToBase64(file) {
 <div className="size">
             <label>Sizes (Enter Quantity)</label>
             <div className="size-quantity">
-              {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map((size) => (
+              {['XS', 'S', 'M', 'L', 'XL', 'XXL','XXXL'].map((size) => (
                 <div key={size} className="size-input">
                   <input
                     type="number"

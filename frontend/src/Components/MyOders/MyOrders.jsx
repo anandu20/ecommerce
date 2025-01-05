@@ -67,7 +67,17 @@ const MyOrders = ({ setUser, setLogin }) => {
 
             {/* Display Orders if available */}
             {!loading && !error && orders.length > 0 ? (
+
+            
                 <div className="orders-container">
+                    <div className="odr">
+                        <h1>NAME</h1>
+                        <h1>BRAND</h1>
+                        <h1>PRICE</h1>
+                        <h1>QUANTITY</h1>
+                        <h1>TOTAL</h1>
+
+                    </div>
                     {orders.map((order) => (
                         <div className="order-item" key={order.id}>
                             <div className="order-image">

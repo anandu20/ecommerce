@@ -34,6 +34,15 @@
                         margin-top: 8%;
                         border: 1px solid black;
                     }
+                    .hii{
+                        padding-top: 15px;
+                        color: #b02350;
+                    }
+
+                    a{
+                        color: #b31049;
+                    }
+                    
                     input[type="password"]{
                         padding: 12px;
                         border-radius: 8px;
@@ -43,7 +52,7 @@
                         border: 1px solid black;
                     }
                     .button-24 {
-                    width: 90%;
+                    width: 100%;
                      margin-top: 10%;
                      background-color: #b31049;
                      border: 1px solid #b31049 ;
@@ -69,7 +78,7 @@
                     vertical-align: middle;
                     }
                     h1{
-                        color: black;
+                        color: rgb(106, 10, 39);
                     }
     
                     .button-24:hover,
@@ -82,6 +91,7 @@
                     .button-24:active {
                     opacity: .5;
                     }
+                    
             }
     
         }

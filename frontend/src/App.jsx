@@ -19,6 +19,8 @@ import EditProduct from './Components/EditProduct/EditProduct';
 import Wishlist from './Components/Wishlist/Wishlist';
 import Orders from './Components/Orders/Orders';
 import MyOrders from './Components/MyOders/MyOrders'
+import Success from './Components/Success/Success'
+
 
 function App() {
   const [user,setUser]=useState(" ")
@@ -44,7 +46,9 @@ function App() {
         <Route path='/wishlist' element={<Wishlist setUser={setUser} setLogin={setLogin}/> }></Route>
         <Route path="/orders/:id" element={<Orders setUser={setUser} setLogin={setLogin}/> }></Route>
         <Route path="/myorders"  element={<MyOrders setUser={setUser} setLogin={setLogin}/> }></Route>
-
+        <Route path='/success' Component={Success}/>
+        
+        
 
 
 

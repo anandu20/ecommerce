@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
+
   }
   
   .leftx {
@@ -9,6 +10,7 @@
     width: 30%;  // Smaller size for the left div
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     height: auto;
+    
  
 
    
@@ -18,6 +20,7 @@
     padding: 20px;
     height: 100%;
     text-align: center;
+    
   }
   .gend{
     margin-left:2%;
@@ -27,6 +30,7 @@
     width: 80%;  // Larger size for the right div
     padding: 20px;
     height: 80vh;
+
 
   }
   .cards{
@@ -40,9 +44,30 @@
     background-color: white;
 
   }
-  
+  .btnss{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 2%;
+    
+
+  }
+  a{
+    color: white;
+    text-decoration: none;
+  }
+  .btn4{
+    background-color: #c11e57;
+    padding: 10px 15px;
+    width: 15%;
+    border: none;
+    color: aliceblue;
+    border-radius: 8px;
+
+  }
+
   .cardx {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     background-color: white;
     height: 100%;
     overflow-y: scroll;
@@ -73,7 +98,13 @@
   button.button-24:hover {
     background-color: #b50844;
   }
-  
+  .logout{
+    background-color:blue ;
+    padding: 10px 35px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+  }
   .buttons {
     margin-top: 10px;
   }
