@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './Cart.scss';
+import '../Cart/Cart.scss';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const Cart = ({ setUser, setLogin }) => {
-
   const { id } = useParams();
   const navigate = useNavigate();
   const value = localStorage.getItem('Auth');
-  
   const [cartItems, setCartItems] = useState([]);
   const [message, setMessage] = useState(''); // To show success or error messages
 
@@ -82,7 +80,7 @@ const Cart = ({ setUser, setLogin }) => {
   const handleProceedToCheckout = async () => {
     try {
       const orderItems = cartItems.map(item => ({
-        productId:item.productId,     
+        productId: item.productId,     
         quantity: item.quantity,  
         sizee: item.size,         
         housename: item.housename || "Default House", // House name, default to "Default House"
@@ -112,7 +110,6 @@ const Cart = ({ setUser, setLogin }) => {
       const res = await axios.delete(`http://localhost:3000/api/deletecart/${id}`);
       if (res.status === 201) {
         alert("Product Purchased");
-
         getAllProducts();
       } else {
         alert("Error purchasing product");
@@ -123,22 +120,28 @@ const Cart = ({ setUser, setLogin }) => {
     }
   };
 
-  // Calculate total price of cart
+  // Calculate total price of cart, apply discount or delivery charge
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return cartItems.reduce((total, item) => {
+      let itemTotal = item.price * item.quantity;
+      // Apply 40% discount if quantity is more than 2
+      if (item.quantity > 2) {
+        itemTotal = itemTotal * 0.6; // Apply 40% discount (60% of the price)
+      } else {
+        itemTotal += 40; // Add ₹40 delivery charge if quantity is 2 or less
+      }
+      return total + itemTotal;
+    }, 0);
   };
 
   return (
     <div className="cart">
       <div className="cart-container">
-        <h1>Your Cart</h1>
-        {message && <div className="success-message">{message}</div>}
-
         <div className="cart-items">
+          {message && <div className="success-message">{message}</div>}
+
           {cartItems.length === 0 ? (
-      
-            <p>  Cart is empty.</p>
-             // Show empty cart message if no items
+            <p>Your cart is empty.</p> // Show empty cart message if no items
           ) : (
             cartItems.map((item) => (
               <div className="cart-item" key={item._id}>
@@ -148,10 +151,9 @@ const Cart = ({ setUser, setLogin }) => {
                   className="cart-item-image"
                 />
                 <div className="cart-item-info">
-                  <h2 className="cart-item-name">Name: {item.pname}</h2>
+                  <h2 className="cart-item-name">{item.pname}</h2>
+                  <h2 className="cart-item-name">Size - {item.size}</h2>
                   <p className="cart-item-price">₹{item.price}</p>
-                
-
 
                   {/* Quantity Controls */}
                   <div className="quantity-controls">
@@ -172,7 +174,7 @@ const Cart = ({ setUser, setLogin }) => {
                   </div>
 
                   <button className="buy-now-btn" onClick={() => handleBuyNow(item._id)}>
-                    Buy Now
+                    Remove
                   </button>
                 </div>
               </div>
@@ -180,17 +182,39 @@ const Cart = ({ setUser, setLogin }) => {
           )}
         </div>
 
-         <div className="cart-footer">
+        {/* Right-Aligned Price Details Card */}
+        <div className="cart-footer-right">
           <div className="total-price">
-            <p>Total: ₹{calculateTotal()}</p> {/* Display calculated total */}
-        {/* <p>40% Discount Added</p>
-            <p>COUPONS FOR YOU APPLIED</p> */}
-          </div>            
+            <h4>Price Details</h4>
+            <div className="price-summary">
+              <div className="price-item">
+                <p>Total Price ({cartItems.length} items)</p>
+                <p>₹{calculateTotal()}</p>
+              </div>
+              <div className="price-item">
+                <p>Delivery Charge</p>
+                <p style={{color:"green"}}>₹40</p>
+              </div>
+              <div className="price-item">
+                <p>Discount Applied (40%)</p>
+                <p style={{color:"green"}}>-₹{calculateTotal() * 0.4}</p>
+              </div>
+              <div className="price-item">
+                <p>Coupon Discount</p>
+                <p style={{color:"green"}}>-₹100</p> {/* Assuming a fixed ₹100 discount for demonstration */}
+              </div>
+            </div>
 
-          {/* Proceed to Checkout Card Button */}
+            <div className="final-price">
+              <p>Final Price</p>
+              <h3>₹{calculateTotal() - (calculateTotal() * 0.4) - 100 + 40}</h3> {/* Final Price after discount and delivery charge */}
+            </div>
+          </div>
+
+          {/* Place Order Button */}
           <div className="checkout-card">
             <button className="proceed-btn" onClick={handleProceedToCheckout}>
-              Proceed to Checkout
+              Place Order
             </button>
           </div>
         </div>
@@ -199,4 +223,4 @@ const Cart = ({ setUser, setLogin }) => {
   );
 };
 
-export default Cart;    
+export default Cart;

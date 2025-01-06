@@ -1,148 +1,314 @@
 .userd {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: white;
 
-  }
-  
-  .leftx {
-    text-align: center;
-    width: 30%;  // Smaller size for the left div
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    height: auto;
-    
- 
+  .left {
+      width: 30%;
+      height: 100%;
 
-   
+      .card {
+          margin: auto;
+          text-align: center;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          align-items: center;
+          
+
+          input[type="text"] {
+              padding: 10px;
+              border-radius: 8px;
+              border: none;
+              width: 95%;
+              margin-top: 3%;
+              align-items: center;
+              box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          }
+
+          input[type="radio"] {
+              border-radius: 8px;
+              margin: 5%;
+              border: 1px solid black;
+          }
+
+          .images {
+              width: 250px;
+              height: 250px;
+              margin: auto;
+
+              img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+              }
+          }
+
+          .buttons {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: space-evenly;
+              .button-24 {
+                  width: 80%;
+                  margin-top: 3%;
+                  background: #d81d5f;
+                  border: 1px solid #d81d5f;
+                  border-radius: 6px;
+                  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+                  box-sizing: border-box;
+                  color: #FFFFFF;
+                  cursor: pointer;
+                  display: inline-block;
+                  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+                  font-size: 16px;
+                  font-weight: 600;
+                  line-height: 16px;
+                  min-height: 40px;
+                  outline: 0;
+                  padding: 12px 14px;
+                  text-align: center;
+                  text-rendering: geometricprecision;
+                  text-transform: none;
+                  user-select: none;
+                  -webkit-user-select: none;
+                  touch-action: manipulation;
+                  vertical-align: middle;
+              }
+
+              .button-24:hover,
+              .button-24:active {
+                  background-color: initial;
+                  color: #d81d5f;
+              }
+
+              .button-24:active {
+                  opacity: .5;
+              }
+          }
+
+      }
   }
-  .card{
-    // box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
-    padding: 20px;
-    height: 100%;
-    text-align: center;
-    
-  }
-  .gend{
-    margin-left:2%;
-  }
-  
+
   .right {
-    width: 80%;  // Larger size for the right div
-    padding: 20px;
-    height: 80vh;
+      width: 70%;
+      height: 100%;
+      overflow-y: scroll;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+      scrollbar-width: none;
+
+      .buttonss {
+          text-align: center;
+          display: flex;
+          background-color: white;
+          margin-bottom: 20px;
+          gap: 15px;
+          
+          .button-24 {
+              margin-left: 3%;
+              width: 20%;
+              margin-top: 3%;
+              background: #d81d5f;
+              border: 1px solid #d81d5f;
+              border-radius: 6px;
+              box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+              box-sizing: border-box;
+              color: #FFFFFF;
+              cursor: pointer;
+              display: inline-block;
+              font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+              font-size: 14px;
+              font-weight: 600;
+              line-height: 16px;
+              min-height: 40px;
+              outline: 0;
+              padding: 12px 8px;
+              text-align: center;
+              text-rendering: geometricprecision;
+              text-transform: none;
+              user-select: none;
+              -webkit-user-select: none;
+              touch-action: manipulation;
+              vertical-align: middle;
+
+              a {
+                  color: inherit;
+                  text-decoration: none;
+              }
+          }
+
+          .button-24:hover,
+          .button-24:active {
+              background-color: initial;
+              color: #d81d5f;
+          }
+
+          .button-24:active {
+              opacity: .5;
+          }
+      }
+  }
+
+  .cards {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align:center;
+      background-color: white;
+      height: auto;
+
+      .cardx {
+          width: 100%;
+          height: 450px;
+
+          .buttonsss{
+              .button-24 {
+                 width: 5%;             
+                 height: 7%;
+                  margin-top: 3%;
+                  color: #cc1f5b;
+                  border: 1px solid #cc1f5b;
+                  border-radius: 50%;
+                  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+                  box-sizing: border-box;
+                  background: #FFFFFF;
+                  cursor: pointer;
+                  display: inline-block;
+                  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+                  font-size: 16px;
+                  font-weight: 800;
+                  line-height: 16px;
+                  min-height: 40px;
+                  outline: 0;
+                  padding: 12px 14px;
+                  text-align: center;
+                  text-rendering: geometricprecision;
+                  text-transform: none;
+                  user-select: none;
+                  -webkit-user-select: none;
+                  touch-action: manipulation;
+                  vertical-align: middle;
+              }
+
+              .button-24:hover,
+              .button-24:active {
+                  background-color: #cc1f5b;
+                  color: white;
+              }
+
+              .button-24:active {
+                  opacity: .5;
+              }
+          
+      }
+
+          .ad {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: space-around;
+              margin-bottom: 15px;
+          }
 
 
-  }
-  .cards{
-    background-color:white;
-    height: 100%;
-    
+          .add-button {
+              background-color: #4CAF50;
+              color: white;
+              border: none;
+              padding: 10px 20px;
+              cursor: pointer;
+              margin-top: 20px;
+              font-size: 16px;
+          }
+
+          .add-button:hover {
+              background-color: #45a049;
+          }
+
+          .address-card {
+              margin: 5%;
+              padding: 30px;
+              box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+              border-radius: 8px;
+              
+              input:disabled {
+                  border: 1px solid rgb(217, 214, 214);
+              }
+          }
+
+          .buttons {
+              display: flex   ;
+              height: auto;
+              .button-24 {
+                  width: 20%;
+                  margin-top: 3%;
+                  color: #cc1f5b;
+                  border: 1px solid #cc1f5b;
+                  border-radius: 6px;
+                  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+                  box-sizing: border-box;
+                  background: #FFFFFF;
+                  cursor: pointer;
+                  display: inline-block;
+                  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+                  font-size: 16px;
+                  font-weight: 800;
+                  line-height: 16px;
+                  min-height: 40px;
+                  outline: 0;
+                  padding: 12px 14px;
+                  text-align: center;
+                  text-rendering: geometricprecision;
+                  text-transform: none;
+                  user-select: none;
+                  -webkit-user-select: none;
+                  touch-action: manipulation;
+                  vertical-align: middle;
+              }
+
+              .button-24:hover,
+              .button-24:active {
+                background-color: #cc1f5b;
+                color: white;
+              }
+
+              .button-24:active {
+                  opacity: .5;
+              }
+          }
+      }
   }
 
-  .card {
-    margin-bottom: 20px;
-    background-color: white;
-
-  }
-  .btnss{
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    margin-bottom: 2%;
-    
-
-  }
-  a{
-    color: white;
-    text-decoration: none;
-  }
-  .btn4{
-    background-color: #c11e57;
-    padding: 10px 15px;
-    width: 15%;
-    border: none;
-    color: aliceblue;
-    border-radius: 8px;
-
-  }
-
-  .cardx {
-    margin-bottom: 0px;
-    background-color: white;
-    height: 100%;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    padding: 30px;
-
-  }
-  
-  input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #3a3232;
-    border-radius: 5px;
-  }
-  
-  button.button-24 {
-    padding: 10px 20px;
-    border: none;
-    background-color: #d81d5f;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-right: 35px;
-    transition: background-color 0.3s;
-  }
-  
-  button.button-24:hover {
-    background-color: #b50844;
-  }
-  .logout{
-    background-color:blue ;
-    padding: 10px 35px;
-    border-radius: 8px;
-    border: none;
-    color: white;
-  }
-  .buttons {
-    margin-top: 10px;
-  }
-  
   .address-card {
-    margin-bottom: 20px;
-  }
-  
-  .images img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 20px;
-  }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  label {
-    margin-right: 10px;
-    font-size: 14px;
-  }
-  
-  .radio-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: px;
-  }
-  
-  input[type="radio"] {
-    margin-right: 5px;
+      margin: 5%;
+      padding: 30px;
+      box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column; /* Stack items vertically */
+      margin-bottom: 20px;
+      
     
+      .ps{
+        background-color: #ffffff;
+        text-align: start;
+
+      }
+      input {
+          width: 45%; /* Ensures both input fields have the same width */
+          padding: 10px;
+          margin: 5px;
+          border: 1px solid #000000;
+      }
+
+      label {
+          width: 45%;
+          text-align: left;
+      }
+
+      .buttons {
+          justify-content: space-evenly;
+      }
   }
-  .gend{
-    display: flex;
-    width: 50px;
-    align-items: center;
-  }
+}
