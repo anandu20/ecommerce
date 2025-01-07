@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { FiPlus } from 'react-icons/fi'; // Import the plus icon from React Icons
-import '../AddProduct/AddProduct.scss'
+import '../EditProduct/EditProduct.scss'
 const EditProduct = ({ setUser, setLogin }) => {
     const {id} = useParams();
     console.log(id);

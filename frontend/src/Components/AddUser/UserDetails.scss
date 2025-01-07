@@ -6,7 +6,7 @@
   background-color: white;
 
   .left {
-      width: 30%;
+      width: 25%;
       height: 100%;
 
       .card {
@@ -92,7 +92,7 @@
   }
 
   .right {
-      width: 70%;
+      width: 75%;
       height: 100%;
       overflow-y: scroll;
       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -163,9 +163,9 @@
           height: 450px;
 
           .buttonsss{
-              .button-24 {
-                 width: 5%;             
-                 height: 7%;
+              .button-25 {
+                 width: 3%;             
+                 height: 5%;
                   margin-top: 3%;
                   color: #cc1f5b;
                   border: 1px solid #cc1f5b;
@@ -181,7 +181,7 @@
                   line-height: 16px;
                   min-height: 40px;
                   outline: 0;
-                  padding: 12px 14px;
+                  padding: 12px 12px;
                   text-align: center;
                   text-rendering: geometricprecision;
                   text-transform: none;
@@ -191,13 +191,13 @@
                   vertical-align: middle;
               }
 
-              .button-24:hover,
-              .button-24:active {
+              .button-25:hover,
+              .button-25:active {
                   background-color: #cc1f5b;
                   color: white;
               }
 
-              .button-24:active {
+              .button-25:active {
                   opacity: .5;
               }
           

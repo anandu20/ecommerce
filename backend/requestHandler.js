@@ -301,7 +301,12 @@ export async function updateUser(req,res) {
   try {
     const _id =req.user.userId;
     const {...user} = req.body;
-    const data = await userdetailsSchema.updateOne({userId:_id},{$set:{...user}})
+    const check=await userdetailsSchema.findOne({userId:_id});
+    if(check){
+      const datas = await userdetailsSchema.updateOne({userId:_id},{$set:{...user}})
+    }else{
+      const data = await userdetailsSchema.create({userId:_id,...user})
+    }
     return res.status(201).send({msg:"Success"})
 
   } catch (error) {

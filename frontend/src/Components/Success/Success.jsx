@@ -1,6 +1,6 @@
 
 import React from 'react';
-import '../Success/Success.scss';
+import '../Success/success.scss';
 import {Link } from 'react-router-dom';
 
 const PurchaseSuccess = () => {

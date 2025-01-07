@@ -53,6 +53,16 @@ const CatProd = ({ setUser, setLogin }) => {
         });
     };
 
+  const deleteProduct = async (id) => {
+    const res = await axios.delete(`http://localhost:3000/api/deletep/${id}`);
+    if (res.status === 201) {
+      alert('Deleted');
+      getProduct();
+    } else {
+      alert('Failed');
+    }
+  };
+
     // Calculate the total cost of all products in the cart
     const calculateTotalCost = () => {
         let total = 0;

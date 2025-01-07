@@ -270,7 +270,7 @@ const UserD = ({ setUser, setLogin }) => {
           />
 
           <div className="buttons">
-            <button className="button-24" onClick={handleSubmit}>
+            <button className="button-24" onClick={ handleSubmit}>
               Save
             </button>
             <button className="button-24" onClick={toggleInput}>
@@ -300,7 +300,7 @@ const UserD = ({ setUser, setLogin }) => {
           <div className="cardx">
             <h1>Address Details</h1>
             <div className="buttonsss">
-              <button className="button-24" onClick={addAddressCard}>
+              <button className="button-25" onClick={addAddressCard}>
                 <FaPlusCircle /> {/* Add Address Icon */}
               </button>
             </div>

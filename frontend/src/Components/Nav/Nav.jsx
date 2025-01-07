@@ -1,3 +1,4 @@
+
 import React from 'react'
 import '../Nav/Nav.scss'
 import { Link } from 'react-router-dom';
@@ -8,7 +9,7 @@ const Nav = ({user,login}) => {
     <div className='navbar'>
       <nav>
         <div className="leftx">
-          <Link to={'/'}> <h1>DAZZLER.COM</h1>  </Link>
+          <Link to={'/'}> <h2 >Dazzler.com</h2>  </Link>
 
         </div>
         <div className="right">
@@ -18,13 +19,14 @@ const Nav = ({user,login}) => {
             <div className="name">
             <h2>{user}</h2>
             </div>
-               
-          <div className="names">
-          <Link to="/cart"><img src="/cart.png" alt="cart" /></Link>
-          </div>
+         
         
             <div className="login">
-            <Link to="/seller"><h2>{login}</h2></Link>
+            <Link to="/seller"><h2>{login} Dash</h2></Link>
+          </div>
+                
+          <div className="names">
+          <Link to="/cart"><img src="/cart.png" alt="cart" /></Link>
           </div>
         </div>
       </nav>
