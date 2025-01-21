@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import '../Home/Home.scss'
+import Sidebar from '../Side/Side';
 
 
 
@@ -53,6 +54,7 @@ const getAllProducts = async () => {
 
 return (
   <div className='home'>
+     <Sidebar setProducts={setProducts}/>
     <h1>All Products</h1>
     <div className="product-container">
       {products.map((product, index) => (

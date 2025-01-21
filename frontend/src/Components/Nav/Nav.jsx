@@ -20,10 +20,13 @@ const Nav = ({user,login}) => {
             <h2>{user}</h2>
             </div>
          
-        
+            {login === 'Seller' && (
+               <>
             <div className="login">
-            <Link to="/seller"><h2>{login} Dash</h2></Link>
-          </div>
+              <Link to="/seller"><h2>{login}</h2></Link>
+            </div>
+            </>
+            )}
                 
           <div className="names">
           <Link to="/cart"><img src="/cart.png" alt="cart" /></Link>

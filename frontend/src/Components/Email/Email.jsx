@@ -20,9 +20,9 @@ const handleSubmit= async(e)=>{
     console.log(res);
     if(res.status==201){
         console.log(res.data.email);
-        localStorage.setItem('email',email.email)
+        localStorage.setItem('email',res.data.email)
         alert("success")
-        navigate("/signup")
+        navigate("/login")
     }
     else{
         alert("failed")

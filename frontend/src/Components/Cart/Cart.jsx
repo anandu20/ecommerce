@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const Cart = ({ setUser, setLogin }) => {
-  const { id } = useParams();
   const navigate = useNavigate();
   const value = localStorage.getItem('Auth');
   const [cartItems, setCartItems] = useState([]);
@@ -38,6 +37,8 @@ const Cart = ({ setUser, setLogin }) => {
         headers: { "Authorization": `Bearer ${value}` },
       });
       if (res.status === 201) {
+        console.log(res.data);
+        
         setCartItems(res.data);
       } else {
         alert("Failed to fetch cart");
@@ -48,34 +49,27 @@ const Cart = ({ setUser, setLogin }) => {
     }
   };
 
-  // Update quantity of an item in the cart
   const updateQuantity = async (id, newQuantity) => {
-    if (newQuantity < 1) return;  // Prevent negative quantity
-
+    if (newQuantity < 1) return;  
+    console.log(id);
+    
     try {
-      // Optimistically update the local state first
       setCartItems(prevItems =>
         prevItems.map(item =>
           item._id === id ? { ...item, quantity: newQuantity } : item
         )
       );
 
-      // Now send the update to the backend
-      const res = await axios.put(
-        `http://localhost:3000/api/updatecart/${id}`,
-        { quantity: newQuantity },
-        { headers: { "Authorization": `Bearer ${value}` } }
-      );
+      const res = await axios.put(`http://localhost:3000/api/updatecart/${id}`, { quantity: newQuantity },{ headers: { "Authorization": `Bearer ${value}` } });
 
-      if (res.status !== 201) {
-        // If the backend request fails, reset the state to the original value
-        getAllProducts();  // Fetch the latest data again
+      if (res.status == 201) {
       }
     } catch (error) {
       console.error("Error updating quantity", error);
-      getAllProducts();  // Fetch the latest data again
+      getAllProducts(); 
     }
   };
+console.log(cartItems);
 
   const handleProceedToCheckout = async () => {
     try {
@@ -83,27 +77,32 @@ const Cart = ({ setUser, setLogin }) => {
         productId: item.productId,     
         quantity: item.quantity,  
         sizee: item.size,         
-        housename: item.housename || "Default House", // House name, default to "Default House"
-        totalPrice: (item.quantity * item.price).toString(),  // Calculate total price for each item
+        housename: item.housename || "Default House",
+        totalPrice: (item.quantity * item.price).toString(),
       }));
 
-      // Make the request to the backend to add all orders
-      const resAddToOrders = await axios.post("http://localhost:3000/api/addallorders", orderItems, {
-        headers: { "Authorization": `Bearer ${value}` }, // Pass authorization token
+
+      const resAddToOrders = await axios.post("http://localhost:3000/api/addallorders",orderItems,{
+        headers: { "Authorization": `Bearer ${value}` },
       });
 
       if (resAddToOrders.status === 201) {
         alert("Success! Your order has been placed.");
         setCartItems([]); 
-        navigate("/")
-      } else {
+        navigate("/success")
+      } 
+        else if(res.status==403){
+        alert("Quantity unavailable");
+
+      }
+      else {
         alert('Error processing checkout');
       }
     } catch (error) {
-      console.error('Error during checkout', error);
-      alert('Failed to proceed with checkout');
+      alert('Product Out of Stock');
     }
   };
+  
 
   const handleBuyNow = async (id) => {
     try {
@@ -111,7 +110,9 @@ const Cart = ({ setUser, setLogin }) => {
       if (res.status === 201) {
         alert("Product Purchased");
         getAllProducts();
-      } else {
+      } 
+    
+      else {
         alert("Error purchasing product");
       }
     } catch (error) {
@@ -207,7 +208,7 @@ const Cart = ({ setUser, setLogin }) => {
 
             <div className="final-price">
               <p>Final Price</p>
-              <h3>₹{calculateTotal() - (calculateTotal() * 0.4) - 100 + 40}</h3> {/* Final Price after discount and delivery charge */}
+              <h3> ₹{cartItems==0?0:calculateTotal() - (calculateTotal() * 0.4)  + 40}</h3>
             </div>
           </div>
 

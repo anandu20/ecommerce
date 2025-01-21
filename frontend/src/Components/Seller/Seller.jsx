@@ -35,8 +35,6 @@ const Seller = ({setUser,setLogin}) => {
 const getSellerD = async()=>{
     try {
         const res = await axios.get("http://localhost:3000/api/getseller",{ headers: { "Authorization": `Bearer ${value}` } })
-    const res1 = await axios.get("http://localhost:3000/api/getcat", { headers: { "Authorization": `Bearer ${value}` } });
-    console.log(res1.data);
     console.log(res);
     if(res.status==201){
         getSeller(res.data)
@@ -53,14 +51,16 @@ const getSellerD = async()=>{
 const  getCategory =async()=>{
 try {
     const res = await axios.get("http://localhost:3000/api/getcat", { headers: { "Authorization": `Bearer ${value}` } });
-    if(res.status==201){
-        setCategories(res.data.category)
-    }
-    else{
-        alert("Error fetching categories");
+    if (res.status === 201 && Array.isArray(res.data)) {
+      console.log(res.data);
+      
+      setCategories(res.data);
+    } else {
+      setCategories([]);
     }
 } catch (error) {
     console.error("Error fetching categories", error);
+    setCategories([]);
       alert("Error fetching categories");
 }
 };
@@ -80,8 +80,6 @@ const getProducts=async()=>{
         alert("Error fetching products");
     }
 }
-
-console.log(seller);
 
   return (
     <div className='seller'>
@@ -104,16 +102,18 @@ console.log(seller);
             <Link to="/addproduct"><button className='button-9'>Add Product</button></Link>
                 <h1 className='cat'>All Categories</h1>
                 <div className="catm">
-                {categories.length > 0 ? (
-                  categories.map((cat, index) => (
-                    <div key={index} className="cat">
-                      <Link to={`/catprod/${cat}`}><h1>{cat}</h1></Link>
-                    </div>
-                  ))
-                ) : (
-                  <p>No categories available</p> 
-                )}
-              </div>
+              {categories && categories.length > 0 ? (
+                categories.map((cat, index) => (
+                  <div key={cat._id || index} className="cat">
+                    <Link to={`/catprod/${cat.category}`}>
+                      <h3>{cat.category}</h3>
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <p>No categories available</p>
+              )}
+            </div>
                 
             </div>
         </div>

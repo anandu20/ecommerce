@@ -22,10 +22,14 @@ const transporter = nodemailer.createTransport({
 
 export async function signUp(req, res) {
   try {
+    console.log('HQI');
+    
     const { email, username, password, cpassword, accounttype } = req.body;
     console.log(req.body);
-    if (!(email && username && password && cpassword))
+    if (!(email && username && password && cpassword && accounttype))
       return res.status(404).send({ msg: "Fields are empty" });
+    console.log(res);
+    
     if (password != cpassword)
       return res.status(404).send({ msg: "Password mismatching" });
     bcrypt.hash(password, 10).then((hashedPassword) => {
@@ -71,65 +75,65 @@ export async function verifyMail(req, res) {
     const { email } = req.body;
     console.log(req.body);
   //   // send mail with defined transport object
-  //   const info = await transporter.sendMail({
-  //     from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
-  //     to: `${email}`, // list of receivers
-  //     subject: "OTP", // Subject line
-  //     text: "your otp", // plain text body
-  //     html: `<!DOCTYPE html>
-  //           <html lang="en">
-  //           <head>
-  //           <meta charset="UTF-8">
-  //           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  //           <title>Email Verification</title>
-  //           <style>
-  //             body {
-  //               font-family: Arial, sans-serif;
-  //               background-color: #f4f4f4;
-  //               margin: 0;
-  //               padding: 0;
-  //             }
-  //             .container {
-  //               max-width: 600px;
-  //               margin: 0 auto;
-  //               background-color: #ffffff;
-  //               padding: 20px;
-  //               text-align: center;
-  //               border-radius: 8px;
-  //               box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  //             }
-  //             h1 {
-  //               font-size: 24px;
-  //               color: #333333;
-  //             }
-  //             p {
-  //               font-size: 16px;
-  //               color: #555555;
-  //             }
-  //             .button {
-  //               display: inline-block;
-  //               background-color: #4CAF50;
-  //               color: white;
-  //               padding: 15px 30px;
-  //               text-decoration: none;
-  //               font-size: 18px;
-  //               border-radius: 4px;
-  //               margin-top: 20px;
-  //               text-transform: uppercase;
-  //             }
-  //           </style>verifyMail
-  //           </head>
-  //           <body>
-  //           <div class="container">
-  //             <h1>Email Verification</h1>
-  //             <p>Click the button below to verify your email address:</p>
+    const info = await transporter.sendMail({
+      from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
+      to: `${email}`, // list of receivers
+      subject: "OTP", // Subject line
+      text: "your otp", // plain text body
+      html: `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Email Verification</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+              }
+              .container {
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                padding: 20px;
+                text-align: center;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              }
+              h1 {
+                font-size: 24px;
+                color: #333333;
+              }
+              p {
+                font-size: 16px;
+                color: #555555;
+              }
+              .button {
+                display: inline-block;
+                background-color: #4CAF50;
+                color: white;
+                padding: 15px 30px;
+                text-decoration: none;
+                font-size: 18px;
+                border-radius: 4px;
+                margin-top: 20px;
+                text-transform: uppercase;
+              }
+            </style>verifyMail
+            </head>
+            <body>
+            <div class="container">
+              <h1>Email Verification</h1>
+              <p>Click the button below to verify your email address:</p>
               
-  //             <a href="http://localhost:5173/signup" class="button">Verify Email</a>
-  //           </div>
-  //           </body>
-  //           </html>
-  // `, // html body
-  //   });
+              <a href="http://localhost:5173/signup" class="button">Verify Email</a>
+            </div>
+            </body>
+            </html>
+  `, // html body
+    });
 
     // console.log("Message sent: %s", info.messageId);
     // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
@@ -301,13 +305,8 @@ export async function updateUser(req,res) {
   try {
     const _id =req.user.userId;
     const {...user} = req.body;
-    const check=await userdetailsSchema.findOne({userId:_id});
-    if(check){
-      const datas = await userdetailsSchema.updateOne({userId:_id},{$set:{...user}})
-    }else{
       const data = await userdetailsSchema.create({userId:_id,...user})
-    }
-    return res.status(201).send({msg:"Success"})
+    return res.status(201).send({msg:"Success",data})
 
   } catch (error) {
     res.status(404).send({msg:error})
@@ -322,9 +321,9 @@ export async function  getUser(req,res) {
   try {
         const _id = req.user.userId;
         const user = await userdetailsSchema.findOne({userId:_id});
-        const count = await orderSchema.countDocuments({});
-        const count1 = await wishlistSchema.countDocuments({});
-        const count2 = await cartSchema.countDocuments({});
+        const count = await orderSchema.countDocuments({userId:_id});
+        const count1 = await wishlistSchema.countDocuments({userId:_id});
+        const count2 = await cartSchema.countDocuments({userId:_id});
         
         return res.status(201).send({msg:"Success",user,count,count1,count2})
 
@@ -337,14 +336,11 @@ export async function  getUser(req,res) {
 
 export async function addCategory(req,res) {
   try{
-    console.log(req.body);
+    const id =req.user.userId;
     const {newCategory} = req.body;
-    const category=await categorySchema.findOne({});
     
-    if (category) {
-      const data = await categorySchema.updateOne({_id:category._id},{$push:{category:newCategory}})
-    }
-    const datas = await categorySchema.create({category:[newCategory]})
+    const datas = await categorySchema.create({category:newCategory})
+    console.log("datas");
     return res.status(201).send({msg:"Success"})
 
   }
@@ -354,10 +350,11 @@ export async function addCategory(req,res) {
   }
 }
 
+
 export async function getCategory(req,res) {
   try {
         const id = req.user.userId;
-        const data = await categorySchema.findOne({});
+        const data = await categorySchema.find();
         return res.status(201).send(data)
   } catch (error) {
     res.status(404).send({msg:error})
@@ -383,9 +380,13 @@ export async function getCatProduct(req,res) {
 
 export async function getAllProducts(req,res) {
   try {
-        const _id = req.user.userId;
-        const products = await productSchema.find({sellerId:_id})
-        return res.status(201).send(products)
+
+        const products = await productSchema.find({})
+       
+
+        return res.status(201).send(products);
+        
+        
   } catch (error) {
     res.status(404).send({msg:error})
 
@@ -463,8 +464,10 @@ export async function getCart(req,res) {
 export async function getOrder(req,res) {
   try {
     const {id} = req.params;
+
+    console.log("haiiheiheidheid");
+    
     const data = await cartSchema.findOne({productId:id})
-    console.log(data);
         
         return res.status(201).send(data);
 
@@ -596,8 +599,11 @@ export async function getOrders(req,res) {
           return await productSchema.findOne({_id:p.productId})
         })
         const products=await Promise.all(productData)
+        console.log("HAI");
+
         
         return res.status(201).send({msg:"Success",products,order,count})
+        
 
         
   } catch (error) {
@@ -609,28 +615,29 @@ export async function getOrders(req,res) {
 export async function addAllOrders(req, res) {
   try {
     const userId = req.user.userId; 
-    const orderItems = req.body;
-    console.log(orderItems);
+    const orderItems = req.body;  
+    console.log(req.body);
+      
     
     const orderData = [];  
     let totalOrderPrice = 0; 
     
     for (const item of orderItems) {
-      const { productId, quantity, sizee, housename, totalPrice } = item;
-      console.log(productId);
+      const { productId, quantity, sizee, totalPrice } = item;
+      
       
       const product = await productSchema.findOne({ _id: productId });
-      console.log(product);
       
       if (!product) {
         return res.status(404).send({ msg: `Product with ID ${productId} not found` });
       }
 
-      console.log(sizee);
       const newQuantity = product.size[sizee] - quantity;
+      console.log(newQuantity);
+      
       
       if (newQuantity < 0) {
-        return res.status(400).send({ msg: `Not enough stock for size ${sizee} of ${product.pname}` });
+        return res.status(403).send({ msg:"Not enough stock for size"});
       }
 
       await productSchema.updateOne(
@@ -640,22 +647,41 @@ export async function addAllOrders(req, res) {
 
       orderData.push({
         userId,
-        product
+        product,
+        quantity,
+        totalPrice
       });
-      console.log(orderData);
-      
 
-      totalOrderPrice += parseFloat(totalPrice);  
     }
 
     const orders = await orderSchema.insertMany(orderData);
+    console.log(orderData);
+    
+   
+    
     const deleteCart=await cartSchema.deleteMany({userId})
-    console.log(deleteCart);
     
 
-    return res.status(201).send({ msg: "Orders placed successfully!", orders, totalOrderPrice });
+    return res.status(201).send({ msg: "Orders placed successfully!", orders});
   } catch (error) {
     console.error("Error during order creation", error);
     return res.status(404).send({ msg: "Error processing orders" });
+  }
+}
+
+
+export async  function getSearchData(req,res){
+  try {
+        const id = req.user.userId;
+
+        const data = await productSchema.find();
+        const data1 = await categorySchema.find();
+        
+        
+        return res.status(201).send({data,data1});
+
+  } catch (error) {
+    return res.status(404).send({ msg: "Error processing orders" });
+
   }
 }

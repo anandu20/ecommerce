@@ -37,6 +37,8 @@ const AddProduct = ({ setUser, setLogin }) => {
     try {
       const res = await axios.get("http://localhost:3000/api/seller", { headers: { "Authorization": `Bearer ${value}` } });
       if (res.status === 201) {  
+        console.log(res.data);
+        
         setProduct((prev)=>({ ...prev,sellerId: res.data.seller.sellerId, brand: res.data.seller.name }));
         setUser(res.data.username);
         setLogin(res.data.accounttype);
@@ -54,6 +56,7 @@ const AddProduct = ({ setUser, setLogin }) => {
     try {
       const res = await axios.get("http://localhost:3000/api/getcat", { headers: { "Authorization": `Bearer ${value}` } });
       if (res.status === 201) { 
+        
         setCategories(res.data.category); // Assuming res.data is an array
       } else {
         alert("Failed to fetch categories");
@@ -72,7 +75,7 @@ const AddProduct = ({ setUser, setLogin }) => {
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/api/addcat", {newCategory}, { headers: { "Content-Type": "application/json" } });
+      const res = await axios.post("http://localhost:3000/api/addcat", {newCategory},  { headers: { "Authorization": `Bearer ${value}` } });
 
       if (res.status === 201) { 
         alert("Category added successfully");
